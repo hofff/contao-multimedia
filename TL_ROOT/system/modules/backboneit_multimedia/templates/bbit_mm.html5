@@ -1,0 +1,5 @@
+<!-- indexer::stop -->
+<figure class="media_container<?php echo $this->floatClass; ?>"<?php if($this->margin || $this->float): ?> style="<?php echo trim($this->margin . $this->float); ?>"<?php endif; ?>>
+  <?php echo $this->embed; ?>
+</figure>
+<!-- indexer::continue -->

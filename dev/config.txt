@@ -1,0 +1,69 @@
+==== PLAYLIST / MEDIA PROPS
+playlistfile ( undefined )
+duration ( 0 )
+file ( undefined )
+mediaid ( undefined )
+provider ( undefined )
+start ( 0 )
+streamer ( undefined )
+netstreambasepath ( undefined )
+shuffle ( false )
+item ( 0 )
+
+
+playlist ( none )
+playlistsize ( 180 )
+
+
+plugins ( undefined )
+
+======= UNUSED
+config ( undefined )  Flash only
+playerready ( undefined )
+bufferlength ( 1 )
+
+
+======= AUTOMATISCH
+id ( undefined )
+
+
+======= VERF�GBAR
+
+modes: [
+            { type: "html5" },
+            { type: "flash", src: "/jwplayer/player.swf" },
+            { type: "download" }
+        ]
+width	-> size[0]
+height  -> size[1]
+
+
+stretching ( uniform )
+smoothing ( true )
+
+volume ( 90 )
+mute ( false )
+
+repeat ( none ) -> repeatplay
+autostart ( false )
+image ( undefined )
+controlbar ( over* )
+controlbar.idlehide ( false ) -> controlbarIdlehide
+dock ( true )
+icons ( true )
+skin ( undefined )
+
+logo.file ( undefined )
+logo.link ( undefined )
+logo.linktarget ( _blank )
+logo.hide ( true )
+logo.margin ( 8 )
+logo.position ( bottom-left )
+logo.timeout ( 3 )
+logo.over ( 1 )
+logo.out ( 0.5 )
+
+backcolor ( ffffff )  Flash only
+frontcolor ( 000000 )  Flash only
+lightcolor ( 000000 )  Flash only
+screencolor ( 000000 )  Flash only

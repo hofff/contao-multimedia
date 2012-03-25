@@ -1,0 +1,19 @@
+<?php if($this->bbit_mm_linkpreview): ?>
+<figure class="image_container<?php echo $this->floatClass; ?>"<?php if($this->margin || $this->float): ?> style="<?php echo trim($this->margin . $this->float); ?>"<?php endif; ?>>
+<a href="#mb_<?php echo $this->id; ?>" rel="<?php echo $this->lightbox; ?>" title="<?php echo $this->backboneit_jwplayer_title; ?>">
+<img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->backboneit_jwplayer_title; ?>">
+</a>
+<?php if($this->caption): ?>
+<figcaption class="caption"><a href="#mb_<?php echo $this->id; ?>"
+	rel="<?php echo $this->lightbox; ?>"
+	title="<?php echo $this->title; ?>"
+	><?php echo $this->caption; ?></a></figcaption>
+<?php endif; ?>
+</figure>
+<?php else: ?>
+<p class="bbit_mm_link"><?php echo $this->beforeLink; ?><a
+	href="<?php echo $this->id; ?>" rel="<?php echo $this->lightbox; ?>"
+	title="<?php echo $this->title; ?>"
+	><?php echo $this->link; ?></a
+	><?php echo $this->afterLink; ?></p>
+<?php endif; ?>

@@ -52,6 +52,18 @@ abstract class MultimediaVideo extends AbstractMultimedia implements MultimediaF
 				break;
 		
 			case 'external':
+				$this->import('Database');
+				
+				$objResult = $this->Database->prepare(
+					'SELECT * FROM tl_bbit_mm_captions WHERE pid = ?'
+				)->execute($this->getID());
+				
+				while($objResult->next()) {
+					$arrCaptions[$objResult->title] = $objResult->source == 'local'
+						? $objResult->local
+						: $objResult->external;
+				}
+				
 				break;
 		}
 		

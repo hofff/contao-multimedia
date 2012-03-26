@@ -14,15 +14,11 @@ $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 	
 	'list' => array(
 		'sorting' => array(
-			'mode'			=> 2,
-			'fields'		=> array('title'),
-			'panelLayout'	=> 'filter,limit;search,sort',
-			'disableGrouping' => true,
-		),
-		'label' => array(
-			'fields'		=> array('title'),
-			'format'		=> '%s',
-//			'label_callback' => array('MultimediaDCA', 'renderLabel'),
+			'mode'			=> 4,
+			'fields'		=> array('sorting'),
+			'panelLayout'	=> 'filter,search,limit',
+			'headerFields'	=> array('type', 'title', 'tstamp'),
+			'child_record_callback'   => array('MultimediaDCA', 'getCaptionsRecord')
 		),
 		'global_operations' => array(
 			'all' => array(

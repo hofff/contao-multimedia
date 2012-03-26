@@ -59,7 +59,7 @@ class MultimediaFactory extends Controller {
 		}
 		
 		if(!is_subclass_of($strClass, 'Multimedia')) {
-			return new Exception(sprintf('Class [%s] is not of type "AbstractMultimedia".', $strClass));
+			return new Exception(sprintf('Class [%s] is not of type "Multimedia".', $strClass));
 		}
 		
 		return $strClass;

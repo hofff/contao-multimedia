@@ -8,6 +8,9 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['delete']	= array('Löschen', 'Medium ID %s l�
 $GLOBALS['TL_LANG']['tl_bbit_mm']['show']	= array('Anzeigen', 'Medium ID %s anzeigen');
 
 
+$GLOBALS['TL_LANG']['tl_bbit_mm']['tstamp']
+	= array('Änderungsdatum');
+
 $GLOBALS['TL_LANG']['tl_bbit_mm']['general_legend']
 	= 'Allgemein';
 $GLOBALS['TL_LANG']['tl_bbit_mm']['type']

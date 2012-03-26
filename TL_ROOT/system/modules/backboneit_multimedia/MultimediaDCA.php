@@ -2,6 +2,31 @@
 
 class MultimediaDCA extends Backend {
 	
+	public function getCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
+		try {
+			$strClass = MultimediaFactory::getInstance()->getClass($row['type']);
+		} catch(Exception $e) {
+			return '';
+		}
+		
+		$blnHasCaptions = is_subclass_of($strClass, 'MultimediaFeatureCaptions');
+		if(!$blnHasCaptions || $row['captions_source'] != 'external') {
+			return '';
+		}
+		
+		return sprintf(
+			'<a href="%s" title="%s"%s>%s</a> ',
+			$this->addToUrl($href . '&id=' . $row['id']),
+			$title,
+			$attributes,
+			$label
+		);
+	}
+	
+	public function getCaptionsRecord($arrRow) {
+		return $arrRow['title'];
+	}
+	
 	public function validateURL($strURL) {
 		//if(http_build_url($strURL))
 		return $strURL;

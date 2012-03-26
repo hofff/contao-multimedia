@@ -38,7 +38,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'captions' => array(
 				'label'	=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['captions'],
 				'href'	=> 'table=tl_bbit_mm_captions',
-				'icon'	=> 'article.gif'
+				'icon'	=> 'article.gif',
+				'button_callback' => array('MultimediaDCA', 'getCaptionsButton'),
 			),
 			'edit' => array(
 				'label'	=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['edit'],

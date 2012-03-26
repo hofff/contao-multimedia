@@ -56,6 +56,7 @@ CREATE TABLE `tl_bbit_mm_captions` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `pid` int(10) unsigned NOT NULL default '0',
   `tstamp` int(10) unsigned NOT NULL default '0',
+  `sorting` int(10) unsigned NOT NULL default '0',
   
   `title` varchar(255) NOT NULL default '',
   

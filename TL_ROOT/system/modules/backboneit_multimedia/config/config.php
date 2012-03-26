@@ -18,8 +18,10 @@ $GLOBALS['TL_MIME']['m4v'] = array('video/mp4', 'iconVIDEO.gif');
 $GLOBALS['TL_MIME']['ogv'] = array('video/ogg', 'iconVIDEO.gif');
 $GLOBALS['TL_MIME']['flv'] = array('video/x-flv', 'iconVIDEO.gif');
 
-$GLOBALS['BBIT_MM_TYPES']['video'] = 'MultimediaVideo';
-// $GLOBALS['BBIT_MM_TYPES']['audio'] = 'MultimediaAudio';
-// $GLOBALS['BBIT_MM_TYPES']['youtube'] = 'MultimediaYoutube';
-// $GLOBALS['BBIT_MM_TYPES']['rtmp'] = 'MultimediaStreamRTMP';
-// $GLOBALS['BBIT_MM_TYPES']['http'] = 'MultimediaStreamHTTP';
+$GLOBALS['BBIT_MM_TYPES']['localVideo'] = 'MultimediaLocalVideo';
+$GLOBALS['BBIT_MM_TYPES']['externalVideo'] = 'MultimediaExternalVideo';
+// $GLOBALS['BBIT_MM_TYPES']['youtubeVideo'] = 'MultimediaYoutube';
+// $GLOBALS['BBIT_MM_TYPES']['rtmpVideo'] = 'MultimediaStreamRTMP';
+// $GLOBALS['BBIT_MM_TYPES']['httpVideo'] = 'MultimediaStreamHTTP';
+// $GLOBALS['BBIT_MM_TYPES']['localAudio'] = 'MultimediaLocalAudio';
+// $GLOBALS['BBIT_MM_TYPES']['externalAudio'] = 'MultimediaExternalAudio';

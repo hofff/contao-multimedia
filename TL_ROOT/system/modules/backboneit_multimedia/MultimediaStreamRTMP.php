@@ -7,7 +7,7 @@ class MultimediaStreamRTMP extends AbstractMultimedia {
 	}
 	
 	public function getSource() {
-		return $this->arrData['rtmp_external'];
+		return $this->arrData['rtmpVideo_source'];
 	}
 	
 	public function isLocalSource() {

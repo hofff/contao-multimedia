@@ -104,6 +104,8 @@ abstract class AbstractMultimedia extends Controller implements Multimedia {
 		return $this->arrData['image'];
 	}
 	
+	public abstract function isLocalSource();
+	
 	private static $intUID = 0;
 	
 	public function getUID() {

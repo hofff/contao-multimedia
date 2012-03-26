@@ -1,6 +1,6 @@
 <?php
 
-class MultimediaVideo extends AbstractMultimedia implements MultimediaFeatureCaptions, MultimediaFeatureAudiodesc {
+abstract class MultimediaVideo extends AbstractMultimedia implements MultimediaFeatureCaptions, MultimediaFeatureAudiodesc {
 	
 	public function __construct(array $arrData) {
 		parent::__construct($arrData);
@@ -10,14 +10,6 @@ class MultimediaVideo extends AbstractMultimedia implements MultimediaFeatureCap
 	
 	public function getSize() {
 		return $this->arrData['size'] ? deserialize($this->arrData['size'], true) : null;
-	}
-	
-	public function getSource() {
-		return $this->isLocalSource() ? $this->arrData['video_local'] : $this->arrData['video_external'];
-	}
-	
-	public function isLocalSource() {
-		return $this->arrData['video_source'] == 'local';
 	}
 	
 	

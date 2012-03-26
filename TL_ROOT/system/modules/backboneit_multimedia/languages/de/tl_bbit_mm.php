@@ -11,11 +11,7 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['show']	= array('Anzeigen', 'Medium ID %s anze
 $GLOBALS['TL_LANG']['tl_bbit_mm']['general_legend']
 	= 'Allgemein';
 $GLOBALS['TL_LANG']['tl_bbit_mm']['type']
-	= array('Medien-Typ', 'Der Medientyp.');
-$GLOBALS['TL_LANG']['tl_bbit_mm']['typeOptions'] = array(
-	'video'		=> 'Video',
-	'audio'		=> 'Audio'
-);
+	= array('Medien-Typ', 'Der Typ dieses Mediums.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['title']
 	= array('Titel', 'Der Titel des Mediums.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['description']
@@ -27,23 +23,33 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['image']
 $GLOBALS['TL_LANG']['tl_bbit_mm']['source_legend']
 	= 'Quelle';
 $GLOBALS['TL_LANG']['tl_bbit_mm']['source']
-	= array('Quelle', '"Lokal" für ein Medium im TYPOlight-Dateisystem. "Extern" für eine externe Medien-Datei, einen externen Medien-Stream oder "YouTube-Video".');
-$GLOBALS['TL_LANG']['tl_bbit_mm']['sourceOptions'] = array(
-	'local'		=> 'Lokal',
-	'external'	=> 'Extern'
-);
+	= array('Quelle', 'Die Quelle des Mediums.');
+
+$strVideoCompat = '<a href="http://en.wikipedia.org/wiki/HTML5_video#Browser_support">Informationen zur Browser-Kompatibilität auf Wikipedia</a>';
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['localVideo_source']
+	= array('Video auswählen', '<strong>' . $strVideoCompat . '</strong> - WebM/VP8: .webm - Ogg Theora: .ogg, .ogv - H.264: .mp4, .m4v  - Flash: .flv');
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['externalVideo_source']
+	= array('URL zum Video', '<strong>' . $strVideoCompat . '</strong> - Eine URL (inkl. "http://") zur externen Video-Datei.');
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['youtubeVideo_source']
+	= array('YouTube-Link/ID', 'Ein Link zu einem Video auf YouTube oder die YouTube-ID eines Videos.');
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['rtmpVideo_source']
+	= array('Datei', '');
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['httpVideo_source']
+	= array('URL zum Stream', '');
 
 
-$GLOBALS['TL_LANG']['tl_bbit_mm']['video_local']
-	= array('Video-Datei auswählen', 'Video\'s: .swf, .flv, .mp4, .m4v, .ogv (nicht von allen Browsern unterstützt)');
-$GLOBALS['TL_LANG']['tl_bbit_mm']['video_external']
-	= array('Video-URL', 'Eine URL (inkl. "http://") zum externen Video-Datei.');
-
+$strAudioCompat = '<a href="http://en.wikipedia.org/wiki/HTML5_audio#.3CAudio.3E_element">Informationen zur Browser-Kompatibilität auf Wikipedia</a>';
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['audio_local']
-	= array('Audio-Datei auswählen', 'Audio: .mp3, .aac (nur Flash)');
+	= array('Audio-Datei auswählen', '<strong>' . $strAudioCompat . '</strong> - Ogg Vorbis: .ogg, .oga - MP3: .mp3 - WAVE: .wav - AAC: .aac, .mp4, .m4a, .m4p, .m4b, .m4r');
+
 $GLOBALS['TL_LANG']['tl_bbit_mm']['audio_external']
-	= array('Audio-URL', 'Eine URL (inkl. "http://") zur externen Audio-Datei.');
+	= array('URL zur Audio-Datei', '<strong>' . $strAudioCompat . '</strong> - Eine URL (inkl. "http://") zur externen Audio-Datei.');
 
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['captions_legend']

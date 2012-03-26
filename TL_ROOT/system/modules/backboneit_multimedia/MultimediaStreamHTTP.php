@@ -18,11 +18,12 @@ class MultimediaStreamHTTP extends AbstractMultimedia {
 // 					$this->Download->bind = 'creation';
 // 					$this->Download->setStartParam(self::DEFAULT_START_PARAM);
 // 					$arrConfig['file'] = $this->Download->getURL($this->backboneit_jwplayer_local);
-		return $this->isLocalSource() ? $this->arrData['video_local'] : $this->arrData['video_external'];
+// 		return $this->isLocalSource() ? $this->arrData['video_local'] : $this->arrData['video_external'];
+		return null;
 	}
 	
 	public function isLocalSource() {
-		return $this->arrData['video_source'] == 'local';
+		return false;
 	}
 	
 	public function getStartParam() {

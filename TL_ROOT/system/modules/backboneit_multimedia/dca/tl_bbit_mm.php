@@ -6,7 +6,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 
 	'config' => array(
 		'dataContainer'		=> 'TableExtended',
-		'ctable'			=> array('tl_bbit_mm_captions', 'tl_bbit_mm_video'),
+		'ctable'			=> array('tl_bbit_mm_captions'),
 		'enableVersioning'	=> true,
 		'onload_callback'	=> array(
 		),
@@ -39,13 +39,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'label'	=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['captions'],
 				'href'	=> 'table=tl_bbit_mm_captions',
 				'icon'	=> 'article.gif',
-				'button_callback' => array('MultimediaDCA', 'renderCaptionsButton'),
-			),
-			'src' => array(
-				'label'	=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video'],
-				'href'	=> 'table=tl_bbit_mm_video',
-				'icon'	=> 'article.gif',
-				'button_callback' => array('MultimediaDCA', 'renderSourcesButton'),
+				'button_callback' => array('MultimediaDCA', 'getCaptionsButton'),
 			),
 			'edit' => array(
 				'label'	=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['edit'],
@@ -78,19 +72,48 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			. ';{source_legend},source'
 			,
 		
-		'video' => '{general_legend},type,title,description,image'
-			. ';{video_legend},video'//,size'
+		'localVideo' => '{general_legend},type,title,description,image'
+			. ';{source_legend},localVideo_source'
+			. ';{video_legend},size'
 			. ';{captions_legend},captions_source'
 			. ';{audiodesc_legend},audiodesc_source'
 			,
 		
-		'youtube' => '{general_legend},type,title,description,image'
-			. ';{youtube_legend},youtube'//,size'
+		'externalVideo' => '{general_legend},type,title,description,image'
+			. ';{source_legend},externalVideo_source'
+			. ';{video_legend},size'
+			. ';{captions_legend},captions_source'
+			. ';{audiodesc_legend},audiodesc_source'
 			,
 		
-// 		'audio' => '{general_legend},type,title,description,image'
-// 			. ';{source_legend},localAudio_source'
-// 			,
+		'youtubeVideo' => '{general_legend},type,title,description,image'
+			. ';{source_legend},youtubeVideo_source'
+			. ';{captions_legend},captions_source'
+			. ';{audiodesc_legend},audiodesc_source'
+			,
+		
+		'rtmpVideo' => '{general_legend},type,title,description,image'
+			. ';{source_legend},rtmpVideo_source'
+			. ';{video_legend},size'
+			. ';{captions_legend},captions_source'
+			. ';{audiodesc_legend},audiodesc_source'
+			,
+		
+		'httpVideo' => '{general_legend},type,title,description,image'
+			. ';{source_legend},httpVideo_source'
+			. ';{video_legend},size'
+			. ';{captions_legend},captions_source'
+			. ';{audiodesc_legend},audiodesc_source'
+			. ';{expert_legend},http_startparam'
+			,
+		
+		'localAudio' => '{general_legend},type,title,description,image'
+			. ';{source_legend},localAudio_source'
+			,
+		
+		'externalAudio' => '{general_legend},type,title,description,image'
+			. ';{source_legend},externalAudio_source'
+			,
 		
 	),
 	
@@ -153,15 +176,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			)
 		),
 	
-		'video' => array(
-			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video'],
-			'inputType'		=> 'dcaWizard',
-			'foreignTable'	=> 'tl_bbit_mm_video',
-		),
-		
-		
-		'youtube' => array(
-			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm_video']['youtube'],
+		'source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['source'],
 			'inputType'		=> 'text',
 			'eval'			=> array(
 				'mandatory'			=> true,
@@ -172,20 +188,115 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			)
 		),
 		
-// 		'size' => array(
-// 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['size'],
-// 			'exclude'		=> true,
-// 			'inputType'		=> 'text',
-// 			'eval'			=> array(
-// 				'multiple'			=> true,
-// 				'size'				=> 2,
-// 				'rgxp'				=> 'digit',
-// 				'tl_class'			=> 'clr w50'
-// 			),
-// 			'save_callback'	=> array(
-// 				array('MultimediaDCA', 'validateSize')
-// 			),
-// 		),
+		'size' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['size'],
+			'exclude'		=> true,
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'multiple'			=> true,
+				'size'				=> 2,
+				'rgxp'				=> 'digit',
+				'tl_class'			=> 'clr w50'
+			),
+			'save_callback'	=> array(
+				array('MultimediaDCA', 'validateSize')
+			),
+		),
+		
+		
+		'localVideo_source' => array (
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['localVideo_source'],
+			'inputType'		=> 'fileTree',
+			'eval'			=> array(
+				'fieldType'			=> 'radio',
+				'files'				=> true,
+				'filesOnly'			=> true,
+				'extensions'		=> 'webm,ogv,ogg,mp4,m4v,flv',
+				'mandatory'			=> true,
+				'decodeEntities'	=> true,
+				'tl_class'			=> 'clr'
+			)
+		),
+		
+		
+		'externalVideo_source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['externalVideo_source'],
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'mandatory'			=> true,
+				'maxlength'			=> 1023,
+				'rgxp'				=> 'url',
+				'tl_class'			=> 'clr long',
+				'decodeEntities'	=> true
+			)
+		),
+		
+		
+		'youtubeVideo_source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['youtubeVideo_source'],
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'mandatory'			=> true,
+				'maxlength'			=> 1023,
+				'rgxp'				=> 'url',
+				'tl_class'			=> 'clr long',
+				'decodeEntities'	=> true
+			)
+		),
+		
+		
+		'rtmpVideo_source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['rtmpVideo_source'],
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'mandatory'			=> true,
+				'maxlength'			=> 1023,
+				'rgxp'				=> 'url',
+				'tl_class'			=> 'clr long',
+				'decodeEntities'	=> true
+			)
+		),
+		
+		
+		'httpVideo_source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['httpVideo_source'],
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'mandatory'			=> true,
+				'maxlength'			=> 1023,
+				'rgxp'				=> 'url',
+				'tl_class'			=> 'clr long',
+				'decodeEntities'	=> true
+			)
+		),
+		
+		
+		'localAudio_source' => array (
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['localAudio_source'],
+			'inputType'		=> 'fileTree',
+			'eval'			=> array(
+				'fieldType'			=> 'radio',
+				'files'				=> true,
+				'filesOnly'			=> true,
+				'extensions'		=> 'webm,oga,ogg,mp3,mp4,m4a,m4b,m4p,m4r,aac',
+				'mandatory'			=> true,
+				'decodeEntities'	=> true,
+				'tl_class'			=> 'clr'
+			)
+		),
+		
+		
+		'externalAudio_source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['externalAudio_source'],
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'mandatory'			=> true,
+				'maxlength'			=> 1023,
+				'rgxp'				=> 'url',
+				'tl_class'			=> 'clr long',
+				'decodeEntities'	=> true
+			)
+		),
 		
 		
 		'captions_source' => array (
@@ -269,6 +380,18 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			)
 		),
 		
+		
+		'http_startparam' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['http_startparam'],
+			'exclude'		=> true,
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'maxlength'			=> '50',
+				'rgxp'				=> 'alnum',
+				'decodeEntities'	=> true,
+				'tl_class'			=> 'clr w50'
+			)
+		)
 	)
 );
 	

@@ -10,9 +10,7 @@ abstract class AbstractMultimedia extends Controller implements Multimedia {
 	}
 	
 	public function generate(array $arrConfig = null, $strPlayer = null) {
-		$strClass = MultimediaPlayerFactory::getInstance()->getPlayerClassFor($this, $strPlayer);
-		$objPlayer = call_user_func(array($strClass, 'create'), $arrConfig);
-		
+		$objPlayer = MultimediaPlayerFactory::getInstance()->getPlayerFor($this, $strPlayer, $arrConfig);
 		$objPlayer->setSizeMode($arrConfig['bbit_mm_sizing']);
 		$arrConfig['bbit_mm_sizing'] == 'custom' && $objPlayer->setSize($arrConfig['bbit_mm_size']);
 		

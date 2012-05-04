@@ -2,15 +2,19 @@
 
 class MultimediaDCA extends Backend {
 	
-	public function getCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
+	public function renderCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
+// 		if($row['captions_source'] != 'external') {
+			return '';
+// 		}
+		
 		try {
 			$strClass = MultimediaFactory::getInstance()->getClass($row['type']);
 		} catch(Exception $e) {
 			return '';
 		}
 		
-		$blnHasCaptions = is_subclass_of($strClass, 'MultimediaFeatureCaptions');
-		if(!$blnHasCaptions || $row['captions_source'] != 'external') {
+		$objClass = new ReflectionClass($strClass);
+		if(!$objClass->isSubclassOf('MultimediaFeatureCaptions')) {
 			return '';
 		}
 		
@@ -23,8 +27,37 @@ class MultimediaDCA extends Backend {
 		);
 	}
 	
-	public function getCaptionsRecord($arrRow) {
+	public function renderCaptionsRecord($arrRow) {
 		return $arrRow['title'];
+	}
+	
+	public function renderSourcesButton($row, $href, $label, $title, $icon, $attributes) {
+// 		if($row['captions_source'] != 'external') {
+			return '';
+// 		}
+		
+		try {
+			$strClass = MultimediaFactory::getInstance()->getClass($row['type']);
+		} catch(Exception $e) {
+			return '';
+		}
+		
+		$objClass = new ReflectionClass($strClass);
+		if(!$objClass->isSubclassOf('MultimediaFeatureCaptions')) {
+			return '';
+		}
+		
+		return sprintf(
+			'<a href="%s" title="%s"%s>%s</a> ',
+			$this->addToUrl($href . '&id=' . $row['id']),
+			$title,
+			$attributes,
+			$label
+		);
+	}
+	
+	public function renderSourcesRecord($arrRow) {
+		return sprintf('%s %s %s', $arrRow['type'], $arrRow['quality'], $arrRow['bandwidth']);
 	}
 	
 	public function validateURL($strURL) {

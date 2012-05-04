@@ -17,23 +17,8 @@ CREATE TABLE `tl_bbit_mm` (
   `description` text NULL,
   `image` varchar(1022) NOT NULL default '',
   
-  `source` varchar(1022) NOT NULL default '',
-  `size` varchar(255) NOT NULL default '',
+  `youtube` varchar(1022) NOT NULL default '',
   
-  `localVideo_source` varchar(1022) NOT NULL default '',
-  
-  `externalVideo_source` varchar(1022) NOT NULL default '',
-  
-  `youtubeVideo_source` varchar(1022) NOT NULL default '',
-  
-  `rtmpVideo_source` varchar(1022) NOT NULL default '',
-  
-  `httpVideo_source` varchar(1022) NOT NULL default '',
-  
-  `localAudio_source` varchar(1022) NOT NULL default '',
-  
-  `externalAudio_source` varchar(1022) NOT NULL default '',
-
   `captions_source` varchar(255) NOT NULL default '',
   `captions_labels` blob NULL,
   
@@ -42,10 +27,34 @@ CREATE TABLE `tl_bbit_mm` (
   `audiodesc_external` varchar(1022) NOT NULL default '',
   `audiodesc_local` varchar(1022) NOT NULL default '',
   
+  PRIMARY KEY  (`id`),
+  KEY `title` (`title`),
+  
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tl_bbit_mm_video` (
+
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `pid` int(10) unsigned NOT NULL default '0',
+  `tstamp` int(10) unsigned NOT NULL default '0',
+  
+  `type` varchar(255) NOT NULL default '',
+  
+  `localVideo_source` varchar(1022) NOT NULL default '',
+  
+  `externalVideo_source` varchar(1022) NOT NULL default '',
+  
+  `rtmpVideo_source` varchar(1022) NOT NULL default '',
+  
+  `localAudio_source` varchar(1022) NOT NULL default '',
+  
+  `externalAudio_source` varchar(1022) NOT NULL default '',
+
+  `httpVideo_source` varchar(1022) NOT NULL default '',
   `http_startparam` varchar(255) NOT NULL default '',
 
   PRIMARY KEY  (`id`),
-  KEY `title` (`title`),
+  KEY `pid` (`pid`)
   
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

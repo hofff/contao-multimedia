@@ -58,13 +58,9 @@ class MultimediaFactory extends Controller {
 			return new Exception(sprintf('Class [%s] for multimedia type [%s] not found.', $strClass, $strType));
 		}
 		
-		$objClass = new ReflectionClass($strClass);
-		if(!$objClass->isSubclassOf('Multimedia')) {
+		if(!is_subclass_of($strClass, 'Multimedia')) {
 			return new Exception(sprintf('Class [%s] is not of type "Multimedia".', $strClass));
 		}
-// 		if(!is_subclass_of($strClass, 'Multimedia')) {
-// 			return new Exception(sprintf('Class [%s] is not of type "Multimedia".', $strClass));
-// 		}
 		
 		return $strClass;
 	}

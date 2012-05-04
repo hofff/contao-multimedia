@@ -2,6 +2,12 @@
 
 class MultimediaPlayerFactory extends Controller {
 	
+	public function getPlayerFor(Multimedia $objMM, $strPrefered = null, array $arrConfig = null) {
+		$strClass = $this->getPlayerClassFor($objMM, $strPlayer);
+		$objPlayer = call_user_func(array($strClass, 'create'), $arrConfig);
+		return $objPlayer;
+	}
+	
 	public function getPlayerClassFor(Multimedia $objMM, $strPrefered = null) {
 		$arrPlayers = $GLOBALS['BBIT_MM_PLAYERS'];
 		if($strPrefered && array_key_exists($strPrefered, $arrPlayers)) {
@@ -47,9 +53,13 @@ class MultimediaPlayerFactory extends Controller {
 			return new Exception(sprintf('Class [%s] for player [%s] not found.', $strClass, $strPlayer));
 		}
 		
-		if(!is_subclass_of($strClass, 'MultimediaPlayer')) {
-			return new Exception(sprintf('Class [%s] is not of type "MultimediaPlayer".', $strClass));
+		$objClass = new ReflectionClass($strClass);
+		if(!$objClass->isSubclassOf('MultimediaPlayer')) {
+			return new Exception(sprintf('Class [%s] is not of type "Multimedia".', $strClass));
 		}
+// 		if(!is_subclass_of($strClass, 'MultimediaPlayer')) {
+// 			return new Exception(sprintf('Class [%s] is not of type "MultimediaPlayer".', $strClass));
+// 		}
 		
 		return $strClass;
 	}

@@ -6,11 +6,7 @@ interface Multimedia {
 	
 	function getData();
 	
-	function getSize();
-	
 	function getSource();
-	
-	function getMIMEType();
 	
 	function getID();
 	

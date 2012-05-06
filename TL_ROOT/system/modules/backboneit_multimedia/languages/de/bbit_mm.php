@@ -3,9 +3,7 @@
 
 $GLOBALS['TL_LANG']['bbit_mm']['types']['localVideo'] = 'Lokales Video';
 $GLOBALS['TL_LANG']['bbit_mm']['types']['externalVideo'] = 'Externes Video';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['youtubeVideo'] = 'YouTube-Video';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['rtmpVideo'] = 'Video via RTMP-Stream (Flash)';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['httpVideo'] = 'Video via HTTP-Pseudo-Stream (Flash)';
+$GLOBALS['TL_LANG']['bbit_mm']['types']['youtube'] = 'YouTube-Video';
 $GLOBALS['TL_LANG']['bbit_mm']['types']['localAudio'] = 'Lokale Audio-Datei';
 $GLOBALS['TL_LANG']['bbit_mm']['types']['externalAudio'] = 'Externe Audio-Datei';
 

@@ -1,6 +1,6 @@
 <?php
 
-abstract class MultimediaVideo extends AbstractMultimedia implements MultimediaFeatureCaptions, MultimediaFeatureAudiodesc {
+abstract class AbstractMultimediaVideo extends AbstractMultimedia implements MultimediaFeatureCaptions, MultimediaFeatureAudiodesc {
 	
 	public function __construct(array $arrData) {
 		parent::__construct($arrData);
@@ -8,8 +8,8 @@ abstract class MultimediaVideo extends AbstractMultimedia implements MultimediaF
 	
 	
 	
-	public function getSize() {
-		return $this->arrData['size'] ? deserialize($this->arrData['size'], true) : null;
+	public function getRatio() {
+		return null;
 	}
 	
 	

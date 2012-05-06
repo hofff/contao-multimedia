@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['bbit_mm_size'] = array(
 		'tl_class'			=> 'w50'
 	),
 	'save_callback'	=> array(
-		array('MultimediaDCA', 'validateSize')
+		array('MultimediaDCA', 'saveSize')
 	)
 );
 

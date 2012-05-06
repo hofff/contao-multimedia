@@ -1,17 +1,23 @@
 <?php
 
-class MultimediaLocalVideo extends MultimediaVideo {
+class MultimediaLocalVideo extends AbstractMultimediaVideo {
 	
 	public function __construct(array $arrData) {
 		parent::__construct($arrData);
 	}
 	
 	public function getSource() {
-		return $this->arrData['localVideo_source'];
-	}
-	
-	public function isLocalSource() {
-		return true;
+		$arrSources = array();
+		
+		foreach(deserialize($this->arrData['localVideo_source'], true) as $strSource) {
+			$objFile = new File($strSource);
+			$arrSources[] = array(
+				'url' => $strSource,
+				'mime' => $objFile->mime
+			);
+		}
+		
+		return $arrSources;
 	}
 	
 }

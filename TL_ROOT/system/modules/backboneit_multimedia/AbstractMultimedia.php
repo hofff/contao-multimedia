@@ -45,43 +45,6 @@ abstract class AbstractMultimedia extends Controller implements Multimedia {
 		return $this->arrData;
 	}
 	
-	protected $strMIMEType;
-	
-	public function getMIMEType($blnBaseTypeOnly = false, $blnUncached = false) {
-		if(!isset($this->strMIMEType) || $blnUncached) {
-			$this->strMIMEType = $this->fetchMIMEType();
-		}
-		
-		if($blnBaseTypeOnly) {
-			list($strBaseType) = explode('/', $this->strMIMEType, 2);
-			return $strBaseType;
-			
-		} else {
-			return $this->strMIMEType;
-		}
-	}
-	
-	protected function fetchMIMEType() {
-		$strSource = $this->getSource();
-		if($this->isLocalSource()) {
-			if(is_file(TL_ROOT . '/' . $strSource)) {
-				$objFile = new File($strSource);
-				$strMIMEType = $objFile->mime;
-			}
-			
-		} else {
-// 			if(strncasecmp($strSource, 'http://', 7) === 0) {
-// 				$objReq = new RequestExtendedCached(7 * 24 * 60 * 60); // bugged see #2991
-// 				$objReq->send($strSource, false, 'HEAD');
-// 				if(!$objReq->hasError()) {
-// 					list($strMIMEType) = explode(';', $objReq->headers['Content-Type'], 2);
-// 				}
-// 			}
-		}
-		
-		return $strMIMEType ? $strMIMEType : 'application/octet-stream';
-	}
-	
 	public function getID() {
 		return $this->arrData['id'];
 	}
@@ -103,8 +66,6 @@ abstract class AbstractMultimedia extends Controller implements Multimedia {
 	public function getPreviewImage() {
 		return $this->arrData['image'];
 	}
-	
-	public abstract function isLocalSource();
 	
 	private static $intUID = 0;
 	

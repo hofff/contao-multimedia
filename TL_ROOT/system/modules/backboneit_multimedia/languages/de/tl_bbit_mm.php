@@ -39,12 +39,6 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['externalVideo_source']
 $GLOBALS['TL_LANG']['tl_bbit_mm']['youtubeVideo_source']
 	= array('YouTube-Link/ID', 'Ein Link zu einem Video auf YouTube oder die YouTube-ID eines Videos.');
 
-$GLOBALS['TL_LANG']['tl_bbit_mm']['rtmpVideo_source']
-	= array('Datei', '');
-
-$GLOBALS['TL_LANG']['tl_bbit_mm']['httpVideo_source']
-	= array('URL zum Stream', '');
-
 
 $strAudioCompat = '<a href="http://en.wikipedia.org/wiki/HTML5_audio#.3CAudio.3E_element">Informationen zur Browser-Kompatibilität auf Wikipedia</a>';
 
@@ -83,5 +77,6 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_external']
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['expert_legend']
 	= 'Experten-Einstellungen';
-$GLOBALS['TL_LANG']['tl_bbit_mm']['http_startparam']
-	= array('Suchparameter des Streamers', 'Der Name des Suchparameter des Streamers, mit dessen Hilfe die gewünschte Abspielposition dem Streamer übergeben wird. (Standardwert "start")');
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['errMIME']
+	= 'Es konnten nicht alle MIME-Typen automatisch bestimmt werden, bitte geben Sie die fehlenden Typen an.';

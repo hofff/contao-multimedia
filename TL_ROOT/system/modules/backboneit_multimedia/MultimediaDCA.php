@@ -80,33 +80,35 @@ class MultimediaDCA extends Backend {
 	
 	public function loadVideoSourcesLocal($varValue, $objDC) {
 		$arrSources = array();
-		foreach($this->getMultimedia($objDC)->getLocalSources() as $arrSource) {
-			$arrSources[] = $arrSource['url'];
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoLocalSource') as $objSource) {
+			$arrSources[] = $objSource->getLocalPath();
 		}
 		return $arrSources;
 	}
 	
 	public function loadVideoSourcesExternal($varValue, $objDC) {
-		return $this->getMultimedia($objDC)->getExternalSources();
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoHTTPSource') as $objSource) {
+			$arrSources[] = $objSource->getURL();
+		}
+		return $arrSources;
 	}
 	
 	public function saveVideoSourcesLocal($varValue, $objDC) {
 		$arrSources = array();
-		foreach(deserialize($varValue, true) as $strSource) {
-			$arrSources[] = array('url' => $strSource, 'local' => true);
+		foreach(deserialize($varValue, true) as $strURL) {
+			$arrSources[] = new MultimediaVideoLocalSource($strURL);
 		}
-		$this->getMultimedia($objDC)->replaceLocalSources($arrSources);
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;
 	}
 	
 	public function saveVideoSourcesExternal($varValue, $objDC) {
 		$arrSources = array();
 		foreach(deserialize($varValue, true) as $arrSource) {
-			if(strlen($arrSource['url'])) {
-				$arrSources[] = $arrSource;
-			}
+			strlen($arrSource['url']) && $arrSources[] = new MultimediaVideoHTTPSource($arrSource['url']);
 		}
-		$this->getMultimedia($objDC)->replaceExternalSources($arrSources);
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;
 	}
 	

@@ -29,64 +29,57 @@ class MultimediaVideoHTTP extends AbstractMultimediaVideo {
 		return $this->arrData['video_source'];
 	}
 	
-	public function validateSources() {
-		$this->arrData['video_source'] = deserialize($this->arrData['video_source'], true);
-		$arrInvalid = array();
-		foreach($this->arrData['video_source'] as &$arrSource) {
-			try {
-				$arrSource['mime'] = self::fetchMIME($arrSource);
-				if(!isset(self::$arrMIMEs[$arrSource['mime']])) {
-					$arrInvalid[] = $arrSource;
-				}
-			} catch(Exception $e) {
-				$arrInvalid[] = $arrSource;
-			}
-		}
-		
-		return $arrInvalid;
-	}
-	
 	public function setSource(array $arrSources) {
 		$this->arrData['video_source'] = $arrSources;
 	}
 	
-	public function replaceLocalSources(array $arrSources) {
-		$this->setSource(array_merge($arrSources, $this->getExternalSources()));
+	public function validateSource() {
+		$arrInvalid = array();
+		foreach($this->getSource() as $objSource) {
+			$objSource->isValid() || $arrInvalid[] = $objSource;
+		}
+		return $arrInvalid;
 	}
 	
-	public function replaceExternalSources(array $arrSources) {
-		$this->setSource(array_merge($arrSources, $this->getLocalSources()));
-	}
-	
-	public function getLocalSources() {
-		return array_filter($this->getSource(), array(__CLASS__, 'isLocalSource'));
-	}
-	
-	public function getExternalSources() {
-		return array_filter($this->getSource(), array(__CLASS__, 'isExternalSource'));
-	}
-	
-	public static function fetchMIME(array &$arrSource) {
-		$strURL = self::isLocalSource($arrSource) ? Environment::getInstance()->base . $arrSource['url'] : $arrSource['url'];
+	public function getSourceByType() {
+		$arrTypes = array_flip(func_get_args());
 		
-//		$objReq = new RequestExtendedCached(60 * 60); // bugged see #2991
-		$objReq = new RequestExtended();
-		$objReq->send($strURL, false, 'HEAD');
-		
-		if($objReq->hasError()) {
-			throw new Exception(sprintf('Source request responded with error: [%s]', $objReq->error), $objReq->code);
+		if(!$arrTypes) {
+			return $this->getSource();
 		}
 		
-		list($strMIME) = explode(';', $objReq->headers['Content-Type'], 2);
-		return $strMIME ? $strMIME : 'application/octet-stream';
+		$arrSources = array();
+		foreach($this->getSource() as $objSource) {
+			isset($arrTypes[$objSource->getType()]) && $arrSources[] = $objSource;
+		}
+		
+		return $arrSources;
 	}
 	
-	public static function isLocalSource(array $arrSource) {
-		return $arrSource['local'];
+	public function getSourceByClass() {
+		$arrClasses = array_flip(func_get_args());
+		
+		if(!$arrClasses) {
+			return $this->getSource();
+		}
+		
+		$arrSources = array();
+		foreach($this->getSource() as $objSource) {
+			isset($arrClasses[get_class($objSource)]) && $arrSources[] = $objSource;
+		}
+		
+		return $arrSources;
 	}
 	
-	public static function isExternalSource(array $arrSource) {
-		return !$arrSource['local'];
+	public function replaceSourceByClass(array $arrSources) {
+		$arrTypes = array();
+		foreach($arrSources as $objSource) {
+			$arrTypes[get_class($objSource)] = true;
+		}
+		foreach($this->getSource() as $objSource) {
+			isset($arrTypes[get_class($objSource)]) || $arrSources[] = $objSource;
+		}
+		$this->setSource($arrSources);
 	}
 	
 }

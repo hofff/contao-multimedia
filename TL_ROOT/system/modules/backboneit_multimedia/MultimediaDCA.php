@@ -2,6 +2,29 @@
 
 class MultimediaDCA extends Backend {
 	
+	public function renderCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
+		$objMM = MultimediaFactory::getInstance()->create($row);
+		
+		if(!($objMM instanceof MultimediaFeatureCaptions)) {
+			return '';
+		}
+		if($objMM->isCaptionsEmbedded()) {
+			return '';
+		}
+		
+		return sprintf(
+			'<a href="%s" title="%s"%s>%s</a> ',
+			$this->addToUrl($href . '&id=' . $row['id']),
+			$title,
+			$attributes,
+			$label
+		);
+	}
+	
+	public function renderCaptionsRecord($arrRow) {
+		return $arrRow['title'];
+	}
+	
 	public function submitYoutube($objDC) {
 		if($objDC->activeRecord->type != 'youtube') {
 			return;
@@ -24,63 +47,67 @@ class MultimediaDCA extends Backend {
 		}
 	}
 	
-	public function renderCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
-		if($row['captions_source'] != 'external') {
-			return '';
+	public function submitVideo($objDC) {
+		$objMM = $this->getMultimedia($objDC);
+		if(!($objMM instanceof MultimediaVideoHTTP)) {
+			return;
 		}
 		
-		try {
-			$strClass = MultimediaFactory::getInstance()->getClass($row['type']);
-		} catch(Exception $e) {
-			return '';
+		if(!$objMM->getSource()) {
+			$objDC->addError($GLOBALS['TL_LANG']['tl_bbit_mm']['errNoSource']);
+			return;
 		}
 		
-		$objClass = new ReflectionClass($strClass);
-		if(!$objClass->isSubclassOf('MultimediaFeatureCaptions')) {
-			return '';
+		$arrInvalid = $objMM->validateSources();
+		if($arrInvalid) {
+			$arrError = array();
+			foreach($arrInvalid as $arrSource) {
+				$arrError[] = $arrSource['url'];
+			}
+			$GLOBALS['TL_INFO'][] = sprintf(
+				$GLOBALS['TL_LANG']['tl_bbit_mm']['warnInvalidSources'],
+				implode(',', $arrError)
+			);
+			return;
 		}
 		
-		return sprintf(
-			'<a href="%s" title="%s"%s>%s</a> ',
-			$this->addToUrl($href . '&id=' . $row['id']),
-			$title,
-			$attributes,
-			$label
-		);
+		$this->Database->prepare(
+			'UPDATE tl_bbit_mm %s WHERE id = ?'
+		)->set(array(
+			'video_source' => $objMM->getSource(),
+		))->execute($objDC->id);
 	}
 	
-	public function renderCaptionsRecord($arrRow) {
-		return $arrRow['title'];
+	public function loadVideoSourcesLocal($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getLocalSources() as $arrSource) {
+			$arrSources[] = $arrSource['url'];
+		}
+		return $arrSources;
 	}
 	
-	public function saveExternalVideoSource($varValue, $objDC) {
-		$arrSources = deserialize($varValue);
-		$arrMIMEs = array_flip($GLOBALS['TL_DCA'][$objDC->table]['fields'][$objDC->field]['eval']['columnFields']['mime']['options']);
-		
-		foreach($arrSources as &$arrSource) {
-			if($arrSource['mime']) {
-				continue;
-			}
-			if(strncasecmp($arrSource['url'], 'http://', 7) === 0) {
-// 				$objReq = new RequestExtendedCached(7 * 24 * 60 * 60); // bugged see #2991
-				$objReq = new RequestExtended();
-				$objReq->send($arrSource['url'], false, 'HEAD');
-				if(!$objReq->hasError()) {
-					list($strMIMEType) = explode(';', $objReq->headers['Content-Type'], 2);
-					if(isset($arrMIMEs[$strMIMEType])) {
-						$arrSource['mime'] = $strMIMEType;
-						continue;
-					}
-				}
-			}
-			$blnMissingMIME = true;
+	public function loadVideoSourcesExternal($varValue, $objDC) {
+		return $this->getMultimedia($objDC)->getExternalSources();
+	}
+	
+	public function saveVideoSourcesLocal($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $strSource) {
+			$arrSources[] = array('url' => $strSource, 'local' => true);
 		}
-		
-		if($blnMissingMIME && count($arrSources) > 1) {
-			throw new Exception($GLOBALS['TL_LANG']['tl_bbit_mm']['errMIME']);
+		$this->getMultimedia($objDC)->replaceLocalSources($arrSources);
+		return null;
+	}
+	
+	public function saveVideoSourcesExternal($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) {
+			if(strlen($arrSource['url'])) {
+				$arrSources[] = $arrSource;
+			}
 		}
-		
-		return $varValue;
+		$this->getMultimedia($objDC)->replaceExternalSources($arrSources);
+		return null;
 	}
 	
 	public function saveURL($strURL) {
@@ -127,6 +154,15 @@ class MultimediaDCA extends Backend {
 			specialchars(sprintf($strTitle, $objResult->title, $objDC->value)),
 			$this->generateImage('alias.gif', $strTitle, 'style="vertical-align:top;"')
 		);
+	}
+	
+	private $arrMultimedia = array();
+	
+	public function getMultimedia($objDC) {
+		if(!isset($this->arrMultimedia[$objDC->id])) {
+			$this->arrMultimedia[$objDC->id] = MultimediaFactory::getInstance()->create($objDC->activeRecord->row());
+		}
+		return $this->arrMultimedia[$objDC->id];
 	}
 	
 	protected function __construct() {

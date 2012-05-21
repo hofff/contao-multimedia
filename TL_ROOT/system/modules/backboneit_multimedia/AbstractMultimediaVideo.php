@@ -9,6 +9,15 @@ abstract class AbstractMultimediaVideo extends AbstractMultimedia implements Mul
 	
 	
 	public function getRatio() {
+		switch($this->arrData['ratio']) {
+			case '4_3': return 4 / 3; break;
+			case '16_9': return 16 / 9; break;
+			default: return 0; break;
+			case 'custom':
+				$this->arrData['ratioCustom'] = deserialize($this->arrData['ratioCustom'], true);
+				return max(0, $this->arrData['ratioCustom'][0] / $this->arrData['ratioCustom'][1]);
+				break;
+		}
 		return null;
 	}
 	

@@ -17,17 +17,15 @@ CREATE TABLE `tl_bbit_mm` (
   `description` text NULL,
   `image` varchar(1022) NOT NULL default '',
   
-  `source` varchar(1022) NOT NULL default '',
-  `size` varchar(255) NOT NULL default '',
+  `ratio` varchar(255) NOT NULL default '',
+  `ratioCustom` varchar(255) NOT NULL default '',
   
   `youtube_source` varchar(1022) NOT NULL default '',
   `youtube_image` varchar(1022) NOT NULL default '',
   
-  `localVideo_source` varchar(1022) NOT NULL default '',
-  `externalVideo_source` varchar(1022) NOT NULL default '',
+  `video_source` blob NULL,
   
-  `localAudio_source` varchar(1022) NOT NULL default '',
-  `externalAudio_source` varchar(1022) NOT NULL default '',
+  `audio_source` blob NULL,
 
   `captions_source` varchar(255) NOT NULL default '',
   `captions_labels` blob NULL,

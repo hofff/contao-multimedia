@@ -23,31 +23,28 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['image']
 	= array('Vorschaubild', 'Das Vorschaubild wird angezeigt solange die Medien-Datei noch nicht abgespielt bzw. angezeigt wird oder wenn es sich um ein Audio-Medium handelt.');
 
 
-$GLOBALS['TL_LANG']['tl_bbit_mm']['source_legend']
-	= 'Quelle';
-$GLOBALS['TL_LANG']['tl_bbit_mm']['source']
-	= array('Quelle', 'Die Quelle des Mediums.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_legend']
+	= 'Video';
 
 $strVideoCompat = '<a href="http://en.wikipedia.org/wiki/HTML5_video#Browser_support">Informationen zur Browser-Kompatibilität auf Wikipedia</a>';
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesLocal']
+	= array('Lokale Quellen', '<strong>' . $strVideoCompat . '</strong> - WebM/VP8: .webm - H.264: .mp4, .m4v - Ogg Theora: .ogg, .ogv  - Flash: .flv - Sie können mehrere Quellen in verschiedenen Formaten auswählen um die Browser-Kompatibilität zu erhöhen. Dieses Feature muss vom jeweiligen Player unterstützt werden.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternal']
+	= array('Externe Quellen', '<strong>' . $strVideoCompat . '</strong> - Die URLs (inkl. "http://") zu den externen Quellen. Sie können mehrere Quellen in verschiedenen Formaten angeben um die Browser-Kompatibilität zu erhöhen. Dieses Feature muss vom jeweiligen Player unterstützt werden.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalURL']
+	= array('URL');
 
-$GLOBALS['TL_LANG']['tl_bbit_mm']['localVideo_source']
-	= array('Video auswählen', '<strong>' . $strVideoCompat . '</strong> - WebM/VP8: .webm - Ogg Theora: .ogg, .ogv - H.264: .mp4, .m4v  - Flash: .flv');
-
-$GLOBALS['TL_LANG']['tl_bbit_mm']['externalVideo_source']
-	= array('URL zum Video', '<strong>' . $strVideoCompat . '</strong> - Eine URL (inkl. "http://") zur externen Video-Datei.');
-
-$GLOBALS['TL_LANG']['tl_bbit_mm']['youtubeVideo_source']
+$GLOBALS['TL_LANG']['tl_bbit_mm']['youtube_source']
 	= array('YouTube-Link/ID', 'Ein Link zu einem Video auf YouTube oder die YouTube-ID eines Videos.');
-
-
-$strAudioCompat = '<a href="http://en.wikipedia.org/wiki/HTML5_audio#.3CAudio.3E_element">Informationen zur Browser-Kompatibilität auf Wikipedia</a>';
-
-$GLOBALS['TL_LANG']['tl_bbit_mm']['audio_local']
-	= array('Audio-Datei auswählen', '<strong>' . $strAudioCompat . '</strong> - Ogg Vorbis: .ogg, .oga - MP3: .mp3 - WAVE: .wav - AAC: .aac, .mp4, .m4a, .m4p, .m4b, .m4r');
-
-$GLOBALS['TL_LANG']['tl_bbit_mm']['audio_external']
-	= array('URL zur Audio-Datei', '<strong>' . $strAudioCompat . '</strong> - Eine URL (inkl. "http://") zur externen Audio-Datei.');
-
+$GLOBALS['TL_LANG']['tl_bbit_mm']['ratio']
+	= array('Seitenverhältnis', 'Das Verhältnis von Breite zu Höhe.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['ratioOptions'] = array(
+	'4_3'		=> '4:3',
+	'16_9'		=> '16:9',
+	'custom'	=> 'Anderes Seitenverhältnis'
+);
+$GLOBALS['TL_LANG']['tl_bbit_mm']['ratioCustom']
+	= array('Anderes Seitenverhältnis', 'Das Verhältnis von Breite zu Höhe.');
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['captions_legend']
 	= 'Untertitel';
@@ -78,5 +75,7 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_external']
 $GLOBALS['TL_LANG']['tl_bbit_mm']['expert_legend']
 	= 'Experten-Einstellungen';
 
-$GLOBALS['TL_LANG']['tl_bbit_mm']['errMIME']
-	= 'Es konnten nicht alle MIME-Typen automatisch bestimmt werden, bitte geben Sie die fehlenden Typen an.';
+$GLOBALS['TL_LANG']['tl_bbit_mm']['errNoSource']
+	= 'Es muss mindestens eine Quelle angegeben werden.';
+$GLOBALS['TL_LANG']['tl_bbit_mm']['warnInvalidSources']
+	= 'Folgende Quellen wurden nicht gefunden oder werden mit einem inkompatiblen MIME-Typen ausgeliefert:<br/>%s';

@@ -1,6 +1,6 @@
 <?php
 
-class MultimediaYoutube extends AbstractMultimedia {
+class MultimediaYoutube extends AbstractMultimediaVideo {
 	
 	const NS_ATOM = 'http://www.w3.org/2005/Atom';
 	const NS_MEDIA = 'http://search.yahoo.com/mrss/';

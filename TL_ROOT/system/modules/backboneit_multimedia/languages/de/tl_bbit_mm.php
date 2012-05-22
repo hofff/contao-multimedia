@@ -31,8 +31,26 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesLocal']
 	= array('Lokale Quellen', '<strong>' . $strVideoCompat . '</strong> - WebM/VP8: .webm - H.264: .mp4, .m4v - Ogg Theora: .ogg, .ogv  - Flash: .flv - Sie können mehrere Quellen in verschiedenen Formaten auswählen um die Browser-Kompatibilität zu erhöhen. Dieses Feature muss vom jeweiligen Player unterstützt werden.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternal']
 	= array('Externe Quellen', '<strong>' . $strVideoCompat . '</strong> - Die URLs (inkl. "http://") zu den externen Quellen. Sie können mehrere Quellen in verschiedenen Formaten angeben um die Browser-Kompatibilität zu erhöhen. Dieses Feature muss vom jeweiligen Player unterstützt werden.');
-$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalURL']
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalStream']
+	= array('HTTP Pseudostreaming Quellen', '');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesRTMP']
+	= array('RTMP Quellen', '');
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL']
 	= array('URL');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesBitrate']
+	= array('Bitrate');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesWidth']
+	= array('Breite');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesStartparam']
+	= array('Startparam');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSubscribe']
+	= array('FCS');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesDVR']
+	= array('DVR');
+
+
+
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['youtube_source']
 	= array('YouTube-Link/ID', 'Ein Link zu einem Video auf YouTube oder die YouTube-ID eines Videos.');

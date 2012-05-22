@@ -80,7 +80,9 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			,
 		
 		'video' => '{general_legend},type,title,description,image'
-			. ';{video_legend},video_sourcesLocal,video_sourcesExternal,ratio'
+			. ';{video_legend},video_sourcesLocal,video_sourcesExternal'
+			. ',video_sourcesExternalStream,video_sourcesRTMP'
+			. ',ratio'
 			. ';{captions_legend},captions_source'
 			. ';{audiodesc_legend},audiodesc_source'
 			,
@@ -218,11 +220,119 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'buttons' => array('up' => false, 'down' => false),
 				'columnFields' => array(
 					'url' => array(
-						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalURL'],
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL'],
 						'inputType'	=> 'text',
 						'eval'		=> array(
 							'style'			=> 'width: 600px;',
 							'decodeEntities'=> true
+						)
+					),
+				),
+				'tl_class'			=> 'clr'
+			),
+			'load_callback' => array(
+				array('MultimediaDCA', 'loadVideoSourcesExternal'),
+			),
+			'save_callback' => array(
+				array('MultimediaDCA', 'saveVideoSourcesExternal'),
+			),
+		),
+		
+		
+		'video_sourcesExternalStream' => array (
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalStream'],
+			'inputType'		=> 'multiColumnWizard',
+			'eval'			=> array(
+				'buttons' => array('up' => false, 'down' => false),
+				'columnFields' => array(
+					'url' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 424px;',
+							'decodeEntities'=> true
+						)
+					),
+					'startparam' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesStartparam'],
+						'inputType'	=> 'text',
+						'default'	=> 'start',
+						'eval'		=> array(
+							'mandatory'		=> true,
+							'style'			=> 'width: 60px;',
+							'decodeEntities'=> true
+						)
+					),
+					'bitrate' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesBitrate'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 40px;',
+							'decodeEntities'=> true
+						)
+					),
+					'width' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesWidth'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 40px;',
+							'decodeEntities'=> true
+						)
+					),
+				),
+				'tl_class'			=> 'clr'
+			),
+			'load_callback' => array(
+				array('MultimediaDCA', 'loadVideoSourcesExternal'),
+			),
+			'save_callback' => array(
+				array('MultimediaDCA', 'saveVideoSourcesExternal'),
+			),
+		),
+		
+		
+		'video_sourcesRTMP' => array (
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesRTMP'],
+			'inputType'		=> 'multiColumnWizard',
+			'eval'			=> array(
+				'buttons' => array('up' => false, 'down' => false),
+				'columnFields' => array(
+					'url' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 424px;',
+							'decodeEntities'=> true
+						)
+					),
+					'bitrate' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesBitrate'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 40px;',
+							'decodeEntities'=> true
+						)
+					),
+					'width' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesWidth'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 40px;',
+							'decodeEntities'=> true
+						)
+					),
+					'subscribe' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSubscribe'],
+						'inputType'	=> 'checkbox',
+						'eval'		=> array(
+							'style'			=> 'width: 27px;',
+						)
+					),
+					'dvr' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesDVR'],
+						'inputType'	=> 'checkbox',
+						'eval'		=> array(
+							'style'			=> 'width: 27px;',
 						)
 					),
 				),

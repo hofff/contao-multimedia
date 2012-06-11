@@ -1,6 +1,6 @@
 <?php
 
-class MultimediaVideoLocalSource extends MultimediaVideoHTTPSource {
+class MultimediaVideoHTTPStreamSource extends MultimediaVideoHTTPSource {
 	
 	private static $arrMIMEs = array(
 		'video/mp4'			=> true,

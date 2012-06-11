@@ -49,7 +49,7 @@ class MultimediaDCA extends Backend {
 	
 	public function submitVideo($objDC) {
 		$objMM = $this->getMultimedia($objDC);
-		if(!($objMM instanceof MultimediaVideoHTTP)) {
+		if(!($objMM instanceof MultimediaVideo)) {
 			return;
 		}
 		
@@ -58,17 +58,16 @@ class MultimediaDCA extends Backend {
 			return;
 		}
 		
-		$arrInvalid = $objMM->validateSources();
+		$arrInvalid = $objMM->validateSource(false);
 		if($arrInvalid) {
 			$arrError = array();
-			foreach($arrInvalid as $arrSource) {
-				$arrError[] = $arrSource['url'];
+			foreach($arrInvalid as $objSource) {
+				$arrError[] = $objSource->getURL();
 			}
-			$GLOBALS['TL_INFO'][] = sprintf(
+			$_SESSION['TL_INFO'][] = sprintf(
 				$GLOBALS['TL_LANG']['tl_bbit_mm']['warnInvalidSources'],
-				implode(',', $arrError)
+				implode('<br />', $arrError)
 			);
-			return;
 		}
 		
 		$this->Database->prepare(
@@ -86,14 +85,6 @@ class MultimediaDCA extends Backend {
 		return $arrSources;
 	}
 	
-	public function loadVideoSourcesExternal($varValue, $objDC) {
-		$arrSources = array();
-		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoHTTPSource') as $objSource) {
-			$arrSources[] = $objSource->getURL();
-		}
-		return $arrSources;
-	}
-	
 	public function saveVideoSourcesLocal($varValue, $objDC) {
 		$arrSources = array();
 		foreach(deserialize($varValue, true) as $strURL) {
@@ -103,10 +94,85 @@ class MultimediaDCA extends Backend {
 		return null;
 	}
 	
+	public function loadVideoSourcesExternal($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoHTTPSource') as $objSource) {
+			$arrSources[] = array('url' => $objSource->getURL());
+		}
+		return $arrSources;
+	}
+	
 	public function saveVideoSourcesExternal($varValue, $objDC) {
 		$arrSources = array();
-		foreach(deserialize($varValue, true) as $arrSource) {
-			strlen($arrSource['url']) && $arrSources[] = new MultimediaVideoHTTPSource($arrSource['url']);
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$arrSources[] = new MultimediaVideoHTTPSource($arrSource['url']);
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesExternalStream($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoHTTPStreamSource') as $objSource) {
+			$arrSources[] = array(
+				'url'			=> $objSource->getURL(),
+				'startparam'	=> $objSource->getStartParam(),
+				'bitrate'		=> $objSource->getBitrate(),
+				'width'			=> $objSource->getWidth(),
+			);
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesExternalStream($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$objSource = new MultimediaVideoHTTPStreamSource($arrSource['url'], $arrSource['startparam']);
+			$objSource->setBitrate($arrSource['bitrate']);
+			$objSource->setWidth($arrSource['width']);
+			$arrSources[] = $objSource;
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesRTMP($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoRTMPSource') as $objSource) {
+			$arrSources[] = array(
+				'streamer'		=> $objSource->getStreamer(),
+				'url'			=> $objSource->getFile(),
+				'bitrate'		=> $objSource->getBitrate(),
+				'width'			=> $objSource->getWidth(),
+			);
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesRTMP($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$objSource = new MultimediaVideoRTMPSource($arrSource['streamer'], $arrSource['url']);
+			$objSource->setBitrate($arrSource['bitrate']);
+			$objSource->setWidth($arrSource['width']);
+			$arrSources[] = $objSource;
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesSMIL($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoSMILSource') as $objSource) {
+			$arrSources[] = array('url' => $objSource->getURL());
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesSMIL($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$arrSources[] = new MultimediaVideoSMILSource($arrSource['url']);
 		}
 		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;

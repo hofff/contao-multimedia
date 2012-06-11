@@ -1,10 +1,14 @@
 <?php
 
-class AbstractMultimediaVideoSource implements MultimediaVideoSource {
+abstract class AbstractMultimediaVideoSource implements MultimediaVideoSource {
 	
 	private $strType;
 	
 	private $strURL;
+	
+	protected $intBitrate;
+	
+	protected $intWidth;
 	
 	protected function __construct($strURL, $strType) {
 		$this->strURL = $strURL;
@@ -15,6 +19,8 @@ class AbstractMultimediaVideoSource implements MultimediaVideoSource {
 		return serialize(array(
 			$this->strType,
 			$this->strURL,
+			$this->intBitrate,
+			$this->intWidth,
 		));
 	}
 	
@@ -22,6 +28,8 @@ class AbstractMultimediaVideoSource implements MultimediaVideoSource {
 		list(
 			$this->strType,
 			$this->strURL,
+			$this->intBitrate,
+			$this->intWidth,
 		) = unserialize($strSerialized);
 	}
 	
@@ -33,13 +41,29 @@ class AbstractMultimediaVideoSource implements MultimediaVideoSource {
 		return $this->strURL;
 	}
 	
-	public function isValid() {
+	public function isValid($blnCached = true) {
 		try {
-			$this->validate();
+			$this->validate($blnCached);
 			return true;
 		} catch(Exception $e) {
 			return false;
 		}
+	}
+	
+	public function getBitrate() {
+		return $this->intBitrate;
+	}
+	
+	public function setBitrate($intBitrate) {
+		$this->intBitrate = $intBitrate;
+	}
+	
+	public function getWidth() {
+		return $this->intWidth;
+	}
+	
+	public function setWidth($intWidth) {
+		$this->intWidth = $intWidth;
 	}
 	
 }

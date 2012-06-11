@@ -26,18 +26,36 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['image']
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_legend']
 	= 'Video';
 
+$GLOBALS['TL_LANG']['tl_bbit_mm']['ratio']
+	= array('Seitenverhältnis', 'Das Verhältnis von Breite zu Höhe.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['ratioOptions'] = array(
+	'4_3'		=> '4:3',
+	'16_9'		=> '16:9',
+	'custom'	=> 'Anderes Seitenverhältnis'
+);
+$GLOBALS['TL_LANG']['tl_bbit_mm']['ratioCustom']
+	= array('Anderes Seitenverhältnis', 'Das Verhältnis von Breite zu Höhe.');
+
+
+$GLOBALS['TL_LANG']['tl_bbit_mm']['sources_legend']
+	= 'Quellen';
+
 $strVideoCompat = '<a href="http://en.wikipedia.org/wiki/HTML5_video#Browser_support">Informationen zur Browser-Kompatibilität auf Wikipedia</a>';
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesLocal']
 	= array('Lokale Quellen', '<strong>' . $strVideoCompat . '</strong> - WebM/VP8: .webm - H.264: .mp4, .m4v - Ogg Theora: .ogg, .ogv  - Flash: .flv - Sie können mehrere Quellen in verschiedenen Formaten auswählen um die Browser-Kompatibilität zu erhöhen. Dieses Feature muss vom jeweiligen Player unterstützt werden.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternal']
 	= array('Externe Quellen', '<strong>' . $strVideoCompat . '</strong> - Die URLs (inkl. "http://") zu den externen Quellen. Sie können mehrere Quellen in verschiedenen Formaten angeben um die Browser-Kompatibilität zu erhöhen. Dieses Feature muss vom jeweiligen Player unterstützt werden.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalStream']
-	= array('HTTP Pseudostreaming Quellen', '');
+	= array('HTTP Pseudostreaming Quellen', 'Nur Flash (Streaming wird im HTML5 Modus für jede Quelle unterstützt). Bitrate in kbps. Breite in Pixel.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesRTMP']
-	= array('RTMP Quellen', '');
+	= array('RTMP Quellen', 'Nur Flash. URLs zu RTMP Streams (beginnen mit "rtmp://"). Bitrate in kbps. Breite in Pixel.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSMIL']
+	= array('SMIL Quellen', 'URLs zu SMIL Dateien.');
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL']
 	= array('URL');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesStreamer']
+	= array('Streamer');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesBitrate']
 	= array('Bitrate');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesWidth']
@@ -50,19 +68,9 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesDVR']
 	= array('DVR');
 
 
-
-
 $GLOBALS['TL_LANG']['tl_bbit_mm']['youtube_source']
 	= array('YouTube-Link/ID', 'Ein Link zu einem Video auf YouTube oder die YouTube-ID eines Videos.');
-$GLOBALS['TL_LANG']['tl_bbit_mm']['ratio']
-	= array('Seitenverhältnis', 'Das Verhältnis von Breite zu Höhe.');
-$GLOBALS['TL_LANG']['tl_bbit_mm']['ratioOptions'] = array(
-	'4_3'		=> '4:3',
-	'16_9'		=> '16:9',
-	'custom'	=> 'Anderes Seitenverhältnis'
-);
-$GLOBALS['TL_LANG']['tl_bbit_mm']['ratioCustom']
-	= array('Anderes Seitenverhältnis', 'Das Verhältnis von Breite zu Höhe.');
+
 
 $GLOBALS['TL_LANG']['tl_bbit_mm']['captions_legend']
 	= 'Untertitel';
@@ -82,6 +90,10 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_legend']
 	= 'Audio-Beschreibung';
 $GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_source']
 	= array('Quelle', 'Von wo die Audio-Beschreibung bezogen werden. "Lokal" für eine Datei im TYPOlight-Dateisystem. "Extern" für eine externe Datei.');
+$GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_sourceOptions'] = array(
+	'local' => 'Lokal',
+	'external' => 'Extern',
+);
 $GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_volume']
 	= array('Lautstärke (in %)', 'Die Lautstärke im Verhältnis zum Medium. Niedrige Werte regeln die Lautstärke der Audio-Beschreibung leiser.');
 $GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_local']

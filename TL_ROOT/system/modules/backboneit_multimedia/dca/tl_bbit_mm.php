@@ -80,9 +80,10 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			,
 		
 		'video' => '{general_legend},type,title,description,image'
-			. ';{video_legend},video_sourcesLocal,video_sourcesExternal'
+			. ';{video_legend},ratio'
+			. ';{sources_legend},video_sourcesLocal,video_sourcesExternal'
 			. ',video_sourcesExternalStream,video_sourcesRTMP'
-			. ',ratio'
+			. ',video_sourcesSMIL'
 			. ';{captions_legend},captions_source'
 			. ';{audiodesc_legend},audiodesc_source'
 			,
@@ -115,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'mandatory'			=> true,
 				'submitOnChange'	=> true,
 				'tl_class'			=> 'clr'
-			)
+			),
 		),
 		'title' => array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['title'],
@@ -200,7 +201,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'fieldType'			=> 'checkbox',
 				'files'				=> true,
 				'filesOnly'			=> true,
-				'extensions'		=> implode(',', MultimediaVideoHTTP::getFileExtensions()),
+				'extensions'		=> implode(',', MultimediaVideo::getFileExtensions()),
 				'decodeEntities'	=> true,
 				'tl_class'			=> 'clr'
 			),
@@ -225,7 +226,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 						'eval'		=> array(
 							'style'			=> 'width: 600px;',
 							'decodeEntities'=> true
-						)
+						),
 					),
 				),
 				'tl_class'			=> 'clr'
@@ -283,10 +284,10 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'tl_class'			=> 'clr'
 			),
 			'load_callback' => array(
-				array('MultimediaDCA', 'loadVideoSourcesExternal'),
+				array('MultimediaDCA', 'loadVideoSourcesExternalStream'),
 			),
 			'save_callback' => array(
-				array('MultimediaDCA', 'saveVideoSourcesExternal'),
+				array('MultimediaDCA', 'saveVideoSourcesExternalStream'),
 			),
 		),
 		
@@ -297,11 +298,19 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'eval'			=> array(
 				'buttons' => array('up' => false, 'down' => false),
 				'columnFields' => array(
+					'streamer' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesStreamer'],
+						'inputType'	=> 'text',
+						'eval'		=> array(
+							'style'			=> 'width: 242px;',
+							'decodeEntities'=> true
+						)
+					),
 					'url' => array(
 						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL'],
 						'inputType'	=> 'text',
 						'eval'		=> array(
-							'style'			=> 'width: 424px;',
+							'style'			=> 'width: 242px;',
 							'decodeEntities'=> true
 						)
 					),
@@ -321,28 +330,40 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 							'decodeEntities'=> true
 						)
 					),
-					'subscribe' => array(
-						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSubscribe'],
-						'inputType'	=> 'checkbox',
+				),
+				'tl_class'			=> 'clr'
+			),
+			'load_callback' => array(
+				array('MultimediaDCA', 'loadVideoSourcesRTMP'),
+			),
+			'save_callback' => array(
+				array('MultimediaDCA', 'saveVideoSourcesRTMP'),
+			),
+		),
+		
+		
+		'video_sourcesSMIL' => array (
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSMIL'],
+			'inputType'		=> 'multiColumnWizard',
+			'eval'			=> array(
+				'buttons' => array('up' => false, 'down' => false),
+				'columnFields' => array(
+					'url' => array(
+						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesURL'],
+						'inputType'	=> 'text',
 						'eval'		=> array(
-							'style'			=> 'width: 27px;',
-						)
-					),
-					'dvr' => array(
-						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesDVR'],
-						'inputType'	=> 'checkbox',
-						'eval'		=> array(
-							'style'			=> 'width: 27px;',
+							'style'			=> 'width: 600px;',
+							'decodeEntities'=> true
 						)
 					),
 				),
 				'tl_class'			=> 'clr'
 			),
 			'load_callback' => array(
-				array('MultimediaDCA', 'loadVideoSourcesExternal'),
+				array('MultimediaDCA', 'loadVideoSourcesSMIL'),
 			),
 			'save_callback' => array(
-				array('MultimediaDCA', 'saveVideoSourcesExternal'),
+				array('MultimediaDCA', 'saveVideoSourcesSMIL'),
 			),
 		),
 		
@@ -383,7 +404,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_source'],
 			'inputType'		=> 'select',
 			'options'		=> array('local', 'external'),
-			'reference'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['sourceOptions'],
+			'reference'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_sourceOptions'],
 			'eval'			=> array(
 				'submitOnChange'	=> true,
 				'includeBlankOption'=> true,

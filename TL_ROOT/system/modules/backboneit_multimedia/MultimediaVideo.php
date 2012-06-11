@@ -1,6 +1,6 @@
 <?php
 
-class MultimediaVideoHTTP extends AbstractMultimediaVideo {
+class MultimediaVideo extends AbstractMultimediaVideo {
 	
 	protected static $arrMIMEs = array(
 		'application/ogg'	=> array('ogg', 'ogv', 'ogm'),
@@ -30,30 +30,26 @@ class MultimediaVideoHTTP extends AbstractMultimediaVideo {
 	}
 	
 	public function setSource(array $arrSources) {
+		unset($this->arrTypeMap);
 		$this->arrData['video_source'] = $arrSources;
 	}
 	
-	public function validateSource() {
+	public function validateSource($blnCached = true) {
 		$arrInvalid = array();
-		foreach($this->getSource() as $objSource) {
-			$objSource->isValid() || $arrInvalid[] = $objSource;
+		foreach($this->getSource() as $objSource) if(!$objSource->isValid($blnCached)) {
+			$arrInvalid[] = $objSource;
 		}
 		return $arrInvalid;
 	}
 	
-	public function getSourceByType() {
-		$arrTypes = array_flip(func_get_args());
-		
-		if(!$arrTypes) {
+	public function getSourceByType($strType = null) {
+		if(!strlen($strType)) {
 			return $this->getSource();
 		}
-		
-		$arrSources = array();
-		foreach($this->getSource() as $objSource) {
-			isset($arrTypes[$objSource->getType()]) && $arrSources[] = $objSource;
+		if(!isset($this->arrTypeMap)) {
+			$this->buildTypeMap();
 		}
-		
-		return $arrSources;
+		return (array) $this->arrTypeMap[$strType];
 	}
 	
 	public function getSourceByClass() {
@@ -76,10 +72,17 @@ class MultimediaVideoHTTP extends AbstractMultimediaVideo {
 		foreach($arrSources as $objSource) {
 			$arrTypes[get_class($objSource)] = true;
 		}
-		foreach($this->getSource() as $objSource) {
-			isset($arrTypes[get_class($objSource)]) || $arrSources[] = $objSource;
+		foreach($this->getSource() as $objSource) if(!isset($arrTypes[get_class($objSource)])) {
+			$arrSources[] = $objSource;
 		}
 		$this->setSource($arrSources);
+	}
+	
+	protected function buildTypeMap() {
+		$this->arrTypeMap = array();
+		foreach($this->getSource() as $objSource) {
+			$this->arrTypeMap[$objSource->getType()][] = $objSource;
+		}
 	}
 	
 }

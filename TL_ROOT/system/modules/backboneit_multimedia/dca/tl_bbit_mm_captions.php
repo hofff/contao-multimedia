@@ -114,7 +114,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 				'fieldType'			=> 'radio',
 				'files'				=> true,
 				'filesOnly'			=> true,
-				'extensions'		=> 'srt,ttml',//srt -> application/x-subrip, application/ttml+xml
+				'extensions'		=> 'srt,ttml,xml',//srt -> application/x-subrip, application/ttml+xml
 				'tl_class'			=> 'clr'
 			)
 		),

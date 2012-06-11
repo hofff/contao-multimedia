@@ -23,4 +23,4 @@ $GLOBALS['TL_MIME']['mp4'] = array('video/mp4', 'iconVIDEO.gif');
 $GLOBALS['TL_MIME']['m4v'] = array('video/mp4', 'iconVIDEO.gif');
 
 $GLOBALS['BBIT_MM_TYPES']['youtube'] = 'MultimediaYoutube';
-$GLOBALS['BBIT_MM_TYPES']['video'] = 'MultimediaVideoHTTP';
+$GLOBALS['BBIT_MM_TYPES']['video'] = 'MultimediaVideo';

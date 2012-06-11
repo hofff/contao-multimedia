@@ -1,6 +1,6 @@
 <?php
 
-class MultimediaVideoHTTPSource implements AbstractMultimediaVideoSource {
+class MultimediaVideoHTTPSource extends AbstractMultimediaVideoSource {
 	
 	private static $arrMIMEs = array(
 		'application/ogg'	=> true,
@@ -31,27 +31,18 @@ class MultimediaVideoHTTPSource implements AbstractMultimediaVideoSource {
 		parent::unserialize($strParent);
 	}
 	
-	public function validate() {
-		if(!isset(self::$arrMIMEs[$this->getMIME()])) {
+	public function validate($blnCached = true) {
+		if(!$this->isValidMIME($this->getMIME($blnCached))) {
 			throw new Exception(sprintf('[%s] does not respond with a valid internet video MIME', $this->getURL()));
 		}
 	}
 	
-	public function getMIME() {
-		return $this->strMIME ? $this->strMIME : $this->strMIME = $this->fetchMIME();
+	public function getMIME($blnCached = true) {
+		return $blnCached && $this->strMIME ? $this->strMIME : $this->strMIME = MultimediaUtils::fetchMIME($this->getURL());
 	}
-
-	protected function fetchMIME() {
-//		$objReq = new RequestExtendedCached(60 * 60); // bugged see #2991
-		$objReq = new RequestExtended();
-		$objReq->send($this->getURL(), false, 'HEAD');
-		
-		if($objReq->hasError()) {
-			throw new Exception(sprintf('Source request responded with error: [%s]', $objReq->error), $objReq->code);
-		}
-		
-		list($strMIME) = explode(';', $objReq->headers['Content-Type'], 2);
-		return $strMIME ? $strMIME : 'application/octet-stream';
+	
+	protected function isValidMIME($strMIME) {
+		return isset(self::$arrMIMEs[$strMIME]);
 	}
 	
 }

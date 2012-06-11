@@ -1,9 +1,9 @@
 <?php
 
-class MultimediaVideoLocalSource implements MultimediaVideoHTTPSource {
+class MultimediaVideoLocalSource extends MultimediaVideoHTTPSource {
 	
 	public function __construct($strURL) {
-		parent::__construct($strURL, 'local');
+		parent::__construct($strURL);
 	}
 	
 	public function getURL() {

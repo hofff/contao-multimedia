@@ -2,15 +2,13 @@
 
 class MultimediaDCA extends Backend {
 	
-	public function getCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
-		try {
-			$strClass = MultimediaFactory::getInstance()->getClass($row['type']);
-		} catch(Exception $e) {
+	public function renderCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
+		$objMM = MultimediaFactory::getInstance()->create($row);
+		
+		if(!($objMM instanceof MultimediaFeatureCaptions)) {
 			return '';
 		}
-		
-		$blnHasCaptions = is_subclass_of($strClass, 'MultimediaFeatureCaptions');
-		if(!$blnHasCaptions || $row['captions_source'] != 'external') {
+		if($objMM->isCaptionsEmbedded()) {
 			return '';
 		}
 		
@@ -23,17 +21,170 @@ class MultimediaDCA extends Backend {
 		);
 	}
 	
-	public function getCaptionsRecord($arrRow) {
+	public function renderCaptionsRecord($arrRow) {
 		return $arrRow['title'];
 	}
 	
-	public function validateURL($strURL) {
+	public function submitYoutube($objDC) {
+		if($objDC->activeRecord->type != 'youtube') {
+			return;
+		}
+		
+		try {
+			$objMM = new MultimediaYoutube($objDC->activeRecord->row());
+			$objMM->loadYoutubeData();
+			$this->Database->prepare(
+				'UPDATE tl_bbit_mm %s WHERE id = ?'
+			)->set(array(
+				'title' => $objMM->getTitle(),
+				'description' => $objMM->getDescription(),
+				'youtube_source' => $objMM->getYoutubeLink(),
+				'youtube_image' => $objMM->getYoutubeImage()
+			))->execute($objDC->id);
+			
+		} catch(Exception $e) {
+			$objDC->addError($e->getMessage(), 'youtube_source');
+		}
+	}
+	
+	public function submitVideo($objDC) {
+		$objMM = $this->getMultimedia($objDC);
+		if(!($objMM instanceof MultimediaVideo)) {
+			return;
+		}
+		
+		if(!$objMM->getSource()) {
+			$objDC->addError($GLOBALS['TL_LANG']['tl_bbit_mm']['errNoSource']);
+			return;
+		}
+		
+		$arrInvalid = $objMM->validateSource(false);
+		if($arrInvalid) {
+			$arrError = array();
+			foreach($arrInvalid as $objSource) {
+				$arrError[] = $objSource->getURL();
+			}
+			$_SESSION['TL_INFO'][] = sprintf(
+				$GLOBALS['TL_LANG']['tl_bbit_mm']['warnInvalidSources'],
+				implode('<br />', $arrError)
+			);
+		}
+		
+		$this->Database->prepare(
+			'UPDATE tl_bbit_mm %s WHERE id = ?'
+		)->set(array(
+			'video_source' => $objMM->getSource(),
+		))->execute($objDC->id);
+	}
+	
+	public function loadVideoSourcesLocal($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoLocalSource') as $objSource) {
+			$arrSources[] = $objSource->getLocalPath();
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesLocal($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $strURL) {
+			$arrSources[] = new MultimediaVideoLocalSource($strURL);
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesExternal($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoHTTPSource') as $objSource) {
+			$arrSources[] = array('url' => $objSource->getURL());
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesExternal($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$arrSources[] = new MultimediaVideoHTTPSource($arrSource['url']);
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesExternalStream($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoHTTPStreamSource') as $objSource) {
+			$arrSources[] = array(
+				'url'			=> $objSource->getURL(),
+				'startparam'	=> $objSource->getStartParam(),
+				'bitrate'		=> $objSource->getBitrate(),
+				'width'			=> $objSource->getWidth(),
+			);
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesExternalStream($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$objSource = new MultimediaVideoHTTPStreamSource($arrSource['url'], $arrSource['startparam']);
+			$objSource->setBitrate($arrSource['bitrate']);
+			$objSource->setWidth($arrSource['width']);
+			$arrSources[] = $objSource;
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesRTMP($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoRTMPSource') as $objSource) {
+			$arrSources[] = array(
+				'streamer'		=> $objSource->getStreamer(),
+				'url'			=> $objSource->getFile(),
+				'bitrate'		=> $objSource->getBitrate(),
+				'width'			=> $objSource->getWidth(),
+			);
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesRTMP($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$objSource = new MultimediaVideoRTMPSource($arrSource['streamer'], $arrSource['url']);
+			$objSource->setBitrate($arrSource['bitrate']);
+			$objSource->setWidth($arrSource['width']);
+			$arrSources[] = $objSource;
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function loadVideoSourcesSMIL($varValue, $objDC) {
+		$arrSources = array();
+		foreach($this->getMultimedia($objDC)->getSourceByClass('MultimediaVideoSMILSource') as $objSource) {
+			$arrSources[] = array('url' => $objSource->getURL());
+		}
+		return $arrSources;
+	}
+	
+	public function saveVideoSourcesSMIL($varValue, $objDC) {
+		$arrSources = array();
+		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
+			$arrSources[] = new MultimediaVideoSMILSource($arrSource['url']);
+		}
+		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		return null;
+	}
+	
+	public function saveURL($strURL) {
 		//if(http_build_url($strURL))
 		return $strURL;
 		//throw new Exception(sprintf($GLOBALS['TL_LANG']['tl_backboneit_video_jwplayer']['urlError'], $strURL));
 	}
 	
-	public function validateSize($strSize, $objDC) {
+	public function saveSize($strSize, $objDC) {
 		$arrSize = deserialize($strSize, true);
 		$arrSize = array_map('trim', $arrSize);
 	
@@ -71,6 +222,15 @@ class MultimediaDCA extends Backend {
 			specialchars(sprintf($strTitle, $objResult->title, $objDC->value)),
 			$this->generateImage('alias.gif', $strTitle, 'style="vertical-align:top;"')
 		);
+	}
+	
+	private $arrMultimedia = array();
+	
+	public function getMultimedia($objDC) {
+		if(!isset($this->arrMultimedia[$objDC->id])) {
+			$this->arrMultimedia[$objDC->id] = MultimediaFactory::getInstance()->create($objDC->activeRecord->row());
+		}
+		return $this->arrMultimedia[$objDC->id];
 	}
 	
 	protected function __construct() {

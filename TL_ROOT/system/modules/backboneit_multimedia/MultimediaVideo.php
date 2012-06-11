@@ -1,91 +1,88 @@
 <?php
 
-abstract class MultimediaVideo extends AbstractMultimedia implements MultimediaFeatureCaptions, MultimediaFeatureAudiodesc {
+class MultimediaVideo extends AbstractMultimediaVideo {
+	
+	protected static $arrMIMEs = array(
+		'application/ogg'	=> array('ogg', 'ogv', 'ogm'),
+		'video/ogg'			=> array('ogg', 'ogv', 'ogm'),
+		'video/webm'		=> array('webm'),
+		'video/mp4'			=> array('mp4', 'm4v', 'f4v'),
+		'video/x-flv'		=> array('flv'),
+	);
+	
+	public static function getFileExtensions() {
+		$arrExt = array();
+		foreach(self::$arrMIMEs as $arrExtByMIME) {
+			foreach($arrExtByMIME as $strExt) {
+				$arrExt[$strExt] = true;
+			}
+		}
+		return array_keys($arrExt);
+	}
 	
 	public function __construct(array $arrData) {
 		parent::__construct($arrData);
 	}
 	
-	
-	
-	public function getSize() {
-		return $this->arrData['size'] ? deserialize($this->arrData['size'], true) : null;
+	public function getSource() {
+		$this->arrData['video_source'] = deserialize($this->arrData['video_source'], true);
+		return $this->arrData['video_source'];
 	}
 	
-	
-	
-	public function hasCaptions() {
-		return $this->arrData['captions_source'] != '';
+	public function setSource(array $arrSources) {
+		unset($this->arrTypeMap);
+		$this->arrData['video_source'] = $arrSources;
 	}
 	
-	public function getCaptions() {
-		$this->buildCaptions();
-		return $this->arrCaptions;
-	}
-	
-	public function getCaptionsCount() {
-		$this->buildCaptions();
-		return $this->arrCaptions ? count($this->arrCaptions) : null;
-	}
-	
-	public function isCaptionsEmbedded() {
-		return $this->arrData['captions_source'] == 'video';
-	}
-	
-	protected $arrCaptions;
-	
-	protected function buildCaptions() {
-		if(isset($this->arrCaptions)) {
-			return;
+	public function validateSource($blnCached = true) {
+		$arrInvalid = array();
+		foreach($this->getSource() as $objSource) if(!$objSource->isValid($blnCached)) {
+			$arrInvalid[] = $objSource;
 		}
-		if(!$this->hasCaptions()) {
-			return;
+		return $arrInvalid;
+	}
+	
+	public function getSourceByType($strType = null) {
+		if(!strlen($strType)) {
+			return $this->getSource();
 		}
+		if(!isset($this->arrTypeMap)) {
+			$this->buildTypeMap();
+		}
+		return (array) $this->arrTypeMap[$strType];
+	}
+	
+	public function getSourceByClass() {
+		$arrClasses = array_flip(func_get_args());
 		
-		$arrCaptions = array();
-		
-		switch($this->arrData['captions_source']) {
-			case 'video':
-				foreach(deserialize($this->arrData['captions_labels'], true) as $arrLabel) {
-					$arrCaptions[$arrLabel['label']] = true;
-				}
-				break;
-		
-			case 'external':
-				$this->import('Database');
-				
-				$objResult = $this->Database->prepare(
-					'SELECT * FROM tl_bbit_mm_captions WHERE pid = ?'
-				)->execute($this->getID());
-				
-				while($objResult->next()) {
-					$arrCaptions[$objResult->title] = $objResult->source == 'local'
-						? $objResult->local
-						: $objResult->external;
-				}
-				
-				break;
+		if(!$arrClasses) {
+			return $this->getSource();
 		}
 		
-		$this->arrCaptions = $arrCaptions;
+		$arrSources = array();
+		foreach($this->getSource() as $objSource) {
+			isset($arrClasses[get_class($objSource)]) && $arrSources[] = $objSource;
+		}
+		
+		return $arrSources;
 	}
 	
-	
-	
-	public function hasAudiodesc() {
-		return $this->arrData['audiodesc_source'] != '';
+	public function replaceSourceByClass(array $arrSources) {
+		$arrTypes = array();
+		foreach($arrSources as $objSource) {
+			$arrTypes[get_class($objSource)] = true;
+		}
+		foreach($this->getSource() as $objSource) if(!isset($arrTypes[get_class($objSource)])) {
+			$arrSources[] = $objSource;
+		}
+		$this->setSource($arrSources);
 	}
 	
-	public function getAudiodesc() {
-		return $this->hasAudiodesc()
-			? $this->arrData['audiodesc_source'] == 'local'
-				? $this->arrData['audiodesc_local']
-				: $this->arrData['audiodesc_external']
-			: null;
-	}
-	
-	public function getAudiodescVolume() {
-		return $this->arrData['audiodesc_volume'];
+	protected function buildTypeMap() {
+		$this->arrTypeMap = array();
+		foreach($this->getSource() as $objSource) {
+			$this->arrTypeMap[$objSource->getType()][] = $objSource;
+		}
 	}
 	
 }

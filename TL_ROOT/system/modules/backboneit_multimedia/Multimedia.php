@@ -4,13 +4,11 @@ interface Multimedia {
 	
 	function generate(array $arrConfig = null, $strPlayer = null);
 	
+	function getRatio();
+	
 	function getData();
 	
-	function getSize();
-	
 	function getSource();
-	
-	function getMIMEType();
 	
 	function getID();
 	

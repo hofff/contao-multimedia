@@ -1,13 +1,8 @@
 <?php
 
 
-$GLOBALS['TL_LANG']['bbit_mm']['types']['localVideo'] = 'Lokales Video';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['externalVideo'] = 'Externes Video';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['youtubeVideo'] = 'YouTube-Video';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['rtmpVideo'] = 'Video via RTMP-Stream (Flash)';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['httpVideo'] = 'Video via HTTP-Pseudo-Stream (Flash)';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['localAudio'] = 'Lokale Audio-Datei';
-$GLOBALS['TL_LANG']['bbit_mm']['types']['externalAudio'] = 'Externe Audio-Datei';
+$GLOBALS['TL_LANG']['bbit_mm']['types']['video'] = 'Video';
+$GLOBALS['TL_LANG']['bbit_mm']['types']['youtube'] = 'YouTube-Video';
 
 //$GLOBALS['TL_LANG']['bbit_mm']['players']['myplayer'] = 'Mein Player';
 
@@ -29,7 +24,6 @@ $GLOBALS['TL_LANG']['bbit_mm']['sizingOptions'] = array(
 	'player'		=> 'Player',
 	'adjustHeight'	=> 'Höhe anpassen',
 	'adjustWidth'	=> 'Breite anpassen',
-	'media'			=> 'Video',
 	'custom'		=> 'Individuelle Maße'
 );
 $GLOBALS['TL_LANG']['bbit_mm']['size']

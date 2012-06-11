@@ -1,5 +1,32 @@
 <?php
 
+
+'source' => array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['source'],
+	'inputType'		=> 'text',
+	'eval'			=> array(
+		'mandatory'			=> true,
+		'maxlength'			=> 1023,
+		'rgxp'				=> 'url',
+		'tl_class'			=> 'clr long',
+		'decodeEntities'	=> true
+	)
+),
+
+'size' => array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['size'],
+	'exclude'		=> true,
+	'inputType'		=> 'text',
+	'eval'			=> array(
+		'multiple'			=> true,
+		'size'				=> 2,
+		'rgxp'				=> 'digit',
+		'tl_class'			=> 'clr w50'
+	),
+	'save_callback'	=> array(
+		array('MultimediaDCA', 'validateSize')
+	),
+),
 // require_once 'fields.php';
 
 // $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('JWPlayerDCA', 'checkPlayer');

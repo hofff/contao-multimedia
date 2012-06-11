@@ -1,9 +1,9 @@
 === Titel
-Multimedia Integration
+Multimedia integration
 
 
 === Suchbegriffe
-multimedia,video,audio,barrierefrei,player
+video,audio,accessible,player,multimedia
 
 
 === Teaser

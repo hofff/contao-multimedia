@@ -15,7 +15,6 @@ abstract class AbstractMultimediaPlayer extends Controller implements Multimedia
 		switch($strMode) {
 			case MultimediaPlayer::SIZE_ADJUST_HEIGHT:
 			case MultimediaPlayer::SIZE_ADJUST_WIDTH:
-			case MultimediaPlayer::SIZE_MEDIA:
 				$this->strSizeMode = $strMode;
 				break;
 				
@@ -46,17 +45,11 @@ abstract class AbstractMultimediaPlayer extends Controller implements Multimedia
 	public function getSizeFor(Multimedia $objMM) {
 		switch($this->strSizeMode) {
 			case MultimediaPlayer::SIZE_ADJUST_HEIGHT:
-				$arrMMSize = $objMM->getSize();
-				$arrMMSize && $arrSize = array($this->arrSize[0], $this->arrSize[0] * $arrMMSize[1] / $arrMMSize[0]);
+				$arrSize = array($this->arrSize[0], $this->arrSize[0] / $objMM->getRatio());
 				break;
 				
 			case MultimediaPlayer::SIZE_ADJUST_WIDTH:
-				$arrMMSize = $objMM->getSize();
-				$arrMMSize && $arrSize = array($this->arrSize[1] * $arrMMSize[0] / $arrMMSize[1], $this->arrSize[1]);
-				break;
-				
-			case MultimediaPlayer::SIZE_MEDIA:
-				$arrSize = $objMM->getSize();
+				$arrSize = array($this->arrSize[1] * $objMM->getRatio(), $this->arrSize[1]);
 				break;
 		}
 		

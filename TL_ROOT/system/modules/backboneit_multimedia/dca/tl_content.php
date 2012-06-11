@@ -55,7 +55,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['bbit_mm_sizing'] = array(
 	'exclude'		=> true,
 	'inputType'		=> 'select',
 	'default'		=> 'player',
-	'options'		=> array('player', 'adjustHeight', 'adjustWidth', 'media', 'custom'),
+	'options'		=> array('player', 'adjustHeight', 'adjustWidth', 'custom'),
 	'reference'		=> &$GLOBALS['TL_LANG']['bbit_mm']['sizingOptions'],
 	'eval'			=> array(
 		'mandatory'			=> true,
@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['bbit_mm_size'] = array(
 		'tl_class'			=> 'w50'
 	),
 	'save_callback'	=> array(
-		array('MultimediaDCA', 'validateSize')
+		array('MultimediaDCA', 'saveSize')
 	)
 );
 

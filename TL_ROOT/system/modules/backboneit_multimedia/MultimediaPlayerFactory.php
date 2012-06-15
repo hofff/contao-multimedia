@@ -9,7 +9,7 @@ class MultimediaPlayerFactory extends Controller {
 	}
 	
 	public function getPlayerClassFor(Multimedia $objMM, $strPrefered = null) {
-		$arrPlayers = $GLOBALS['BBIT_MM_PLAYERS'];
+		$arrPlayers = (array) $GLOBALS['BBIT_MM_PLAYERS'];
 		if($strPrefered && array_key_exists($strPrefered, $arrPlayers)) {
 			$arrPlayers = array_merge(array($strPrefered => ''), $arrPlayers);
 		}

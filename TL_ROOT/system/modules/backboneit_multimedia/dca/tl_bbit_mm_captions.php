@@ -3,7 +3,7 @@
 $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 
 	'config' => array(
-		'dataContainer'		=> 'TableExtended',
+		'dataContainer'		=> 'Table',
 		'ptable'			=> 'tl_bbit_mm',
 		'enableVersioning'	=> true,
 		'onload_callback'	=> array(
@@ -11,7 +11,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 		'onsubmit_callback'	=> array(
 		),
 	),
-	
+
 	'list' => array(
 		'sorting' => array(
 			'mode'			=> 4,
@@ -52,21 +52,19 @@ $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 			)
 		),
 	),
-	
+
 	'palettes' => array(
 		'default'	=> '{general_legend},title;'
 			. '{source_legend},source;'
 	),
-	
+
 	'subpalettes' => array(
-		'source'	=> array(
-			'local'		=> 'format,local',
-			'external'	=> 'format,external'
-		)
+		'source_local'		=> 'format,local',
+		'source_external'	=> 'format,external',
 	),
-	
+
 	'fields' => array(
-	
+
 		'title' => array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm_captions']['title'],
 			'exclude'		=> false,
@@ -77,7 +75,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 				'tl_class'			=> 'clr long'
 			)
 		),
-			
+
 		'source' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm_captions']['source'],
 			'exclude'		=> false,
@@ -130,7 +128,6 @@ $GLOBALS['TL_DCA']['tl_bbit_mm_captions'] = array(
 				'decodeEntities'	=> true
 			)
 		)
-		
+
 	)
 );
-	

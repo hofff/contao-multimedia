@@ -47,14 +47,24 @@ class MultimediaDCA extends Backend {
 		}
 	}
 
+	private $sources;
+
+	private $localSourcesSaved;
+
 	public function submitVideo($objDC) {
 		$objMM = $this->getMultimedia($objDC);
 		if(!($objMM instanceof MultimediaVideo)) {
 			return;
 		}
 
+		$sources = (array) $this->sources[$objDC->id];
+		if(!$this->localSourcesSaved[$objDC->id]) {
+			$sources = array_merge($sources, $objMM->getSourceByClass('MultimediaVideoLocalSource'));
+		}
+		$objMM->setSource($sources);
+
 		if(!$objMM->getSource()) {
-			$objDC->addError($GLOBALS['TL_LANG']['tl_bbit_mm']['errNoSource']);
+			$this->addErrorMessage($GLOBALS['TL_LANG']['tl_bbit_mm']['errNoSource']);
 			return;
 		}
 
@@ -88,9 +98,9 @@ class MultimediaDCA extends Backend {
 	public function saveVideoSourcesLocal($varValue, $objDC) {
 		$arrSources = array();
 		foreach(deserialize($varValue, true) as $strURL) {
-			$arrSources[] = new MultimediaVideoLocalSource($strURL);
+			$this->sources[$objDC->id][] = new MultimediaVideoLocalSource($strURL);
 		}
-		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
+		$this->localSourcesSaved[$objDC->id] = true;
 		return null;
 	}
 
@@ -105,9 +115,8 @@ class MultimediaDCA extends Backend {
 	public function saveVideoSourcesExternal($varValue, $objDC) {
 		$arrSources = array();
 		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
-			$arrSources[] = new MultimediaVideoHTTPSource($arrSource['url']);
+			$this->sources[$objDC->id][] = new MultimediaVideoHTTPSource($arrSource['url']);
 		}
-		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;
 	}
 
@@ -127,12 +136,12 @@ class MultimediaDCA extends Backend {
 	public function saveVideoSourcesExternalStream($varValue, $objDC) {
 		$arrSources = array();
 		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
-			$objSource = new MultimediaVideoHTTPStreamSource($arrSource['url'], $arrSource['startparam']);
+			$startparam = strlen($arrSource['startparam']) ? $arrSource['startparam'] : 'start';
+			$objSource = new MultimediaVideoHTTPStreamSource($arrSource['url'], $startparam);
 			$objSource->setBitrate($arrSource['bitrate']);
 			$objSource->setWidth($arrSource['width']);
-			$arrSources[] = $objSource;
+			$this->sources[$objDC->id][] = $objSource;
 		}
-		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;
 	}
 
@@ -155,9 +164,8 @@ class MultimediaDCA extends Backend {
 			$objSource = new MultimediaVideoRTMPSource($arrSource['streamer'], $arrSource['url']);
 			$objSource->setBitrate($arrSource['bitrate']);
 			$objSource->setWidth($arrSource['width']);
-			$arrSources[] = $objSource;
+			$this->sources[$objDC->id][] = $objSource;
 		}
-		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;
 	}
 
@@ -172,9 +180,8 @@ class MultimediaDCA extends Backend {
 	public function saveVideoSourcesSMIL($varValue, $objDC) {
 		$arrSources = array();
 		foreach(deserialize($varValue, true) as $arrSource) if(strlen($arrSource['url'])) {
-			$arrSources[] = new MultimediaVideoSMILSource($arrSource['url']);
+			$this->sources[$objDC->id][] = new MultimediaVideoSMILSource($arrSource['url']);
 		}
-		$this->getMultimedia($objDC)->replaceSourceByClass($arrSources);
 		return null;
 	}
 

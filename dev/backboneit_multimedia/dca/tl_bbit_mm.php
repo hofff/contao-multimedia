@@ -10,7 +10,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 		'onsubmit_callback'	=> array(
 		),
 	),
-	
+
 	'list' => array(
 		'sorting' => array(
 			'mode'			=> 2,
@@ -55,7 +55,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			)
 		),
 	),
-	
+
 	'palettes' => array(
 		'default'		=> '{general_legend},type,title,description,image;',
 		'video'		=> '{general_legend},type,title,description,image;'
@@ -64,16 +64,16 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 		'audio'		=> '{general_legend},type,title,description,image;'
 			. '{source_legend},source;',
 	),
-	
+
 	'subpalettes' => array(
 		'source'	=> array(
 			'local'		=> 'local',
 			'external'	=> 'url'
 		)
 	),
-	
+
 	'fields' => array(
-	
+
 		'type' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['type'],
 			'exclude'		=> false,
@@ -120,7 +120,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'tl_class'			=> 'clr'
 			)
 		),
-		
+
 		'source' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['source'],
 			'exclude'		=> false,
@@ -162,7 +162,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'decodeEntities'	=> true
 			)
 		),
-		
+
 		'startparam' => array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['startparam'],
 			'exclude'		=> true,

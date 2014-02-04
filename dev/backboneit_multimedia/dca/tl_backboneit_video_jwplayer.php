@@ -13,7 +13,7 @@ $GLOBALS['TL_DCA'][$ns] = array(
 		'onsubmit_callback'	=> array(
 		),
 	),
-	
+
 	'list' => array(
 		'sorting' => array(
 			'mode'			=> 2,
@@ -63,7 +63,7 @@ $GLOBALS['TL_DCA'][$ns] = array(
 			)
 		),
 	),
-	
+
 	'palettes' => array(
 		'default'		=> '{general_legend},title,fallback;'
 			. '{player_legend},jwplayer,stretching,smoothing,html5;'
@@ -71,7 +71,7 @@ $GLOBALS['TL_DCA'][$ns] = array(
 			. '{appearence_legend},image,size,skin;'
 			. '{logo_legend},logo'
 	),
-	
+
 	'subpalettes' => array(
 		'skin'	=> array(
 			''		=> 'dock,icons,controlbar,backcolor,frontcolor,lightcolor,screencolor',
@@ -86,9 +86,9 @@ $GLOBALS['TL_DCA'][$ns] = array(
 		'logoLink'	=> 'logoLinkURL,logoLinkTarget',
 		'logoHide'	=> 'logoTimeout'
 	),
-	
+
 	'fields' => array(
-	
+
 		'title' => array(
 			'label'		=> &$GLOBALS['TL_LANG'][$ns]['title'],
 			'exclude'	=> true,
@@ -107,8 +107,8 @@ $GLOBALS['TL_DCA'][$ns] = array(
 				'tl_class'			=> 'w50 cbx m12'
 			)
 		),
-		
-		
+
+
 		'jwplayer' => array(
 			'label'		=> &$GLOBALS['TL_LANG'][$ns]['jwplayer'],
 			'exclude'	=> true,
@@ -153,8 +153,8 @@ $GLOBALS['TL_DCA'][$ns] = array(
 				'tl_class'			=> 'clr w50 cbx'
 			)
 		),
-		
-		
+
+
 		'volume' => array(
 			'label'			=> &$GLOBALS['TL_LANG'][$ns]['volume'],
 			'default'		=> 90,
@@ -193,8 +193,8 @@ $GLOBALS['TL_DCA'][$ns] = array(
 				'tl_class'			=> 'w50 cbx m12'
 			)
 		),
-		
-		
+
+
 		'image' => array(
 			'label'			=> &$GLOBALS['TL_LANG'][$ns]['image'],
 			'exclude'		=> true,
@@ -360,8 +360,8 @@ $GLOBALS['TL_DCA'][$ns] = array(
 				'tl_class'			=> 'w50'
 			)
 		),
-		
-		
+
+
 		'logo' => array(
 			'label'			=> &$GLOBALS['TL_LANG'][$ns]['logo'],
 			'exclude'		=> true,

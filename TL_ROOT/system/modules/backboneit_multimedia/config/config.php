@@ -12,7 +12,7 @@ $GLOBALS['TL_CTE']['includes']['bbit_mm'] = 'ContentMultimedia';
 
 //ffs, missing module dependencies requiring this way...
 //$GLOBALS['TL_HOOKS']['loadDataContainer'][] = array('JWPlayerDCA', 'setup');
-	
+
 $GLOBALS['TL_MIME']['webm'] = array('video/webm', 'iconVIDEO.gif');
 $GLOBALS['TL_MIME']['ogv'] = array('video/ogg', 'iconVIDEO.gif');
 $GLOBALS['TL_MIME']['ogg'] = array('video/ogg', 'iconVIDEO.gif');

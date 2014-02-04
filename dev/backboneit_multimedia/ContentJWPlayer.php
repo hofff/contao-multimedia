@@ -1,13 +1,13 @@
 <?php
 
 class ContentJWPlayer extends ContentElement {
-	
+
 	protected $strTemplate = 'ce_jwplayer';
-	
+
 	public function generate() {
 		if(TL_MODE == 'BE') {
 			$this->loadLanguageFile('backboneit_jwplayer');
-			
+
 			$objTemplate = new BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### JW-Player ### '
@@ -19,10 +19,10 @@ class ContentJWPlayer extends ContentElement {
 
 			return $objTemplate->parse();
 		}
-		
+
 		if(!JWPlayerUtils::getPlayerPath())
 			return '';
-		
+
 		return parent::generate();
 	}
 
@@ -30,5 +30,5 @@ class ContentJWPlayer extends ContentElement {
 		$objJWPlayer = new JWPlayer($this->arrData);
 		$this->Template->jwplayer = $objJWPlayer->parse();
 	}
-	
+
 }

@@ -192,6 +192,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'inputType'		=> 'fileTree',
 			'eval'			=> array(
 				'multiple'			=> true,
+				'doNotSaveEmpty'	=> true,
 				'fieldType'			=> 'checkbox',
 				'files'				=> true,
 				'filesOnly'			=> true,
@@ -212,6 +213,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternal'],
 			'inputType'		=> 'multiColumnWizard',
 			'eval'			=> array(
+				'doNotSaveEmpty'	=> true,
 				'buttons' => array('up' => false, 'down' => false),
 				'columnFields' => array(
 					'url' => array(
@@ -238,6 +240,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalStream'],
 			'inputType'		=> 'multiColumnWizard',
 			'eval'			=> array(
+				'doNotSaveEmpty'	=> true,
 				'buttons' => array('up' => false, 'down' => false),
 				'columnFields' => array(
 					'url' => array(
@@ -290,6 +293,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesRTMP'],
 			'inputType'		=> 'multiColumnWizard',
 			'eval'			=> array(
+				'doNotSaveEmpty'	=> true,
 				'buttons' => array('up' => false, 'down' => false),
 				'columnFields' => array(
 					'streamer' => array(
@@ -340,6 +344,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSMIL'],
 			'inputType'		=> 'multiColumnWizard',
 			'eval'			=> array(
+				'doNotSaveEmpty'	=> true,
 				'buttons' => array('up' => false, 'down' => false),
 				'columnFields' => array(
 					'url' => array(

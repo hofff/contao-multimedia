@@ -21,7 +21,7 @@
 	"require": {
 		"php": ">=5.3",
 		"contao/core": ">=2.11,<3",
-		"menatwork/contao-multicolumnwizard": ">=3.2,<4",
+		"menatwork/contao-multicolumnwizard": ">=3.2-dev,<4",
 		"discordier/httprequestextended": ">=1.1,<2"
 	},
 	"replace": {

@@ -254,9 +254,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 					'startparam' => array(
 						'label'		=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesStartparam'],
 						'inputType'	=> 'text',
-						'default'	=> 'start',
 						'eval'		=> array(
-							'mandatory'		=> true,
 							'style'			=> 'width: 60px;',
 							'decodeEntities'=> true
 						)

@@ -5,7 +5,7 @@ $this->loadLanguageFile('bbit_mm');
 $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 
 	'config' => array(
-		'dataContainer'		=> 'TableExtended',
+		'dataContainer'		=> 'Table',
 		'ctable'			=> array('tl_bbit_mm_captions'),
 		'enableVersioning'	=> true,
 		'onload_callback'	=> array(
@@ -15,7 +15,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			array('MultimediaDCA', 'submitVideo'),
 		),
 	),
-	
+
 	'list' => array(
 		'sorting' => array(
 			'mode'			=> 2,
@@ -66,19 +66,19 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			)
 		),
 	),
-	
+
 	'palettes' => array(
 		'__selector__' => array('type'),
-		
+
 		'default'	=> '{general_legend},type,title,description,image'
 			,
-		
+
 		'youtube' => '{general_legend},type,title,description,image'
 			. ';{video_legend},youtube_source,ratio'
 			. ';{captions_legend},captions_source'
 			. ';{audiodesc_legend},audiodesc_source'
 			,
-		
+
 		'video' => '{general_legend},type,title,description,image'
 			. ';{video_legend},ratio'
 			. ';{sources_legend},video_sourcesLocal,video_sourcesExternal'
@@ -87,24 +87,18 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 			. ';{captions_legend},captions_source'
 			. ';{audiodesc_legend},audiodesc_source'
 			,
-		
+
 	),
-	
+
 	'subpalettes' => array(
-		'ratio' => array(
-			'custom'	=> 'ratioCustom',
-		),
-		'captions_source' => array(
-			'video'		=> 'captions_labels',
-		),
-		'audiodesc_source' => array(
-			'local'		=> 'audiodesc_local',
-			'external'	=> 'audiodesc_external',
-		)
+		'ratio_custom'				=> 'ratioCustom',
+		'captions_source_video'		=> 'captions_labels',
+		'audiodesc_source_local'	=> 'audiodesc_local',
+		'audiodesc_source_external'	=> 'audiodesc_external',
 	),
-	
+
 	'fields' => array(
-	
+
 		'type' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['type'],
 			'filter'		=> true,
@@ -151,8 +145,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'tl_class'			=> 'clr'
 			)
 		),
-		
-		
+
+
 		'ratio' => array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['ratio'],
 			'search'		=> true,
@@ -178,8 +172,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'tl_class'			=> 'w50'
 			)
 		),
-		
-		
+
+
 		'youtube_source' => array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['youtube_source'],
 			'inputType'		=> 'text',
@@ -191,8 +185,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'decodeEntities'	=> true
 			)
 		),
-		
-		
+
+
 		'video_sourcesLocal' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesLocal'],
 			'inputType'		=> 'fileTree',
@@ -212,8 +206,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				array('MultimediaDCA', 'saveVideoSourcesLocal'),
 			),
 		),
-		
-		
+
+
 		'video_sourcesExternal' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternal'],
 			'inputType'		=> 'multiColumnWizard',
@@ -238,8 +232,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				array('MultimediaDCA', 'saveVideoSourcesExternal'),
 			),
 		),
-		
-		
+
+
 		'video_sourcesExternalStream' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesExternalStream'],
 			'inputType'		=> 'multiColumnWizard',
@@ -290,8 +284,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				array('MultimediaDCA', 'saveVideoSourcesExternalStream'),
 			),
 		),
-		
-		
+
+
 		'video_sourcesRTMP' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesRTMP'],
 			'inputType'		=> 'multiColumnWizard',
@@ -340,8 +334,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				array('MultimediaDCA', 'saveVideoSourcesRTMP'),
 			),
 		),
-		
-		
+
+
 		'video_sourcesSMIL' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['video_sourcesSMIL'],
 			'inputType'		=> 'multiColumnWizard',
@@ -366,8 +360,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				array('MultimediaDCA', 'saveVideoSourcesSMIL'),
 			),
 		),
-		
-				
+
+
 		'captions_source' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['captions_source'],
 			'inputType'		=> 'select',
@@ -398,8 +392,8 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 				'tl_class'			=> 'clr'
 			)
 		),
-		
-		
+
+
 		'audiodesc_source' => array (
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['audiodesc_source'],
 			'inputType'		=> 'select',
@@ -450,4 +444,3 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 		),
 	)
 );
-	

@@ -43,7 +43,7 @@ class MultimediaDCA extends Backend {
 			))->execute($objDC->id);
 
 		} catch(Exception $e) {
-			$objDC->addError($e->getMessage(), 'youtube_source');
+			$this->addErrorMessage($e->getMessage());
 		}
 	}
 

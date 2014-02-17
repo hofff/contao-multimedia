@@ -25,7 +25,7 @@ class MultimediaVideo extends AbstractMultimediaVideo {
 	}
 
 	public function getSource() {
-		$this->arrData['video_source'] = deserialize($this->arrData['video_source'], true);
+		$this->arrData['video_source'] = unserialize($this->arrData['video_source'], true);
 		return $this->arrData['video_source'];
 	}
 

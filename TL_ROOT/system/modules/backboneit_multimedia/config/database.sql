@@ -59,7 +59,7 @@ CREATE TABLE `tl_bbit_mm_captions` (
   `startparam` varchar(255) NOT NULL default '',
 
   PRIMARY KEY  (`id`),
-  KEY `pid` (`pid`, `title`),
+  KEY `pid_title` (`pid`, `title`),
 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

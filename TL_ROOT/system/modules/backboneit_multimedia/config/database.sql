@@ -15,7 +15,7 @@ CREATE TABLE `tl_bbit_mm` (
   `type` varchar(255) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
   `description` text NULL,
-  `image` varchar(1022) NOT NULL default '',
+  `image` binary(16) NULL,
 
   `ratio` varchar(255) NOT NULL default '',
   `ratioCustom` varchar(255) NOT NULL default '',
@@ -33,7 +33,7 @@ CREATE TABLE `tl_bbit_mm` (
   `audiodesc_source` varchar(255) NOT NULL default '',
   `audiodesc_volume` smallint(5) NOT NULL default '90',
   `audiodesc_external` varchar(1022) NOT NULL default '',
-  `audiodesc_local` varchar(1022) NOT NULL default '',
+  `audiodesc_local` binary(16) NULL,
 
   PRIMARY KEY  (`id`),
   KEY `title` (`title`),

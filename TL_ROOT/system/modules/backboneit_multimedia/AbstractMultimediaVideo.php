@@ -86,11 +86,14 @@ abstract class AbstractMultimediaVideo extends AbstractMultimedia implements Mul
 	}
 
 	public function getAudiodesc() {
-		return $this->hasAudiodesc()
-			? $this->arrData['audiodesc_source'] == 'local'
-				? $this->arrData['audiodesc_local']
-				: $this->arrData['audiodesc_external']
-			: null;
+		if(!$this->hasAudiodesc()) {
+			return null;
+		}
+		if($this->arrData['audiodesc_source'] == 'external') {
+			return $this->arrData['audiodesc_external'];
+		}
+		$file = \FilesModel::findByPk($this->arrData['audiodesc_local']);
+		return $file ? $file->path : null;
 	}
 
 	public function getAudiodescVolume() {

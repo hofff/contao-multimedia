@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['bbit_mm']
 // 	. '{protected_legend:hide},protected;'
 // 	. '{expert_legend:hide},guests,cssID,space';
 
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['bbit_mm_sizing_custom']
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['bbit_mm_sizing_bbit_mm_custom']
 	= 'bbit_mm_size';
 // $GLOBALS['TL_DCA']['tl_content']['subpalettes']['bbit_mm_linkpreview_bbit_mm_linkpreview_text']
 // 	= 'bbit_mm_link,bbit_mm_embedlink';
@@ -54,8 +54,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['bbit_mm_sizing'] = array(
 	'label'			=> &$GLOBALS['TL_LANG']['bbit_mm']['sizing'],
 	'exclude'		=> true,
 	'inputType'		=> 'select',
-	'default'		=> 'player',
-	'options'		=> array('player', 'adjustHeight', 'adjustWidth', 'custom'),
+	'default'		=> 'bbit_mm_player',
+	'options'		=> array('bbit_mm_player', 'bbit_mm_adjustHeight', 'bbit_mm_adjustWidth', 'bbit_mm_custom'),
 	'reference'		=> &$GLOBALS['TL_LANG']['bbit_mm']['sizingOptions'],
 	'eval'			=> array(
 		'mandatory'			=> true,

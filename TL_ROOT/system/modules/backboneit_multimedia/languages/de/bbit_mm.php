@@ -21,10 +21,10 @@ $GLOBALS['TL_LANG']['bbit_mm']['media']
 $GLOBALS['TL_LANG']['bbit_mm']['sizing']
 	= array('Abmaßung', 'Die Größe des Players. "Player" nimmt eine vom Player gewählte Größe. "Höhe anpassen" oder "Breite anpassen" passt die vom Player gewählte Größe an das Seitenverhältnis des Mediums an. Bei "Medium" wird die Größe des Medium verwendet. "Individuell Maße" erlaubt die explizite Angabe einer Größe.');
 $GLOBALS['TL_LANG']['bbit_mm']['sizingOptions'] = array(
-	'player'		=> 'Player',
-	'adjustHeight'	=> 'Höhe anpassen',
-	'adjustWidth'	=> 'Breite anpassen',
-	'custom'		=> 'Individuelle Maße'
+	'bbit_mm_player'		=> 'Player',
+	'bbit_mm_adjustHeight'	=> 'Höhe anpassen',
+	'bbit_mm_adjustWidth'	=> 'Breite anpassen',
+	'bbit_mm_custom'		=> 'Individuelle Maße'
 );
 $GLOBALS['TL_LANG']['bbit_mm']['size']
 	= array('Maße (in Pixel)', 'Die Breite und Höhe dieses Elements.');

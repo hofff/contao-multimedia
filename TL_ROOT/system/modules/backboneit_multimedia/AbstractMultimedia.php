@@ -65,6 +65,9 @@ abstract class AbstractMultimedia extends Controller implements Multimedia {
 
 	public function getPreviewImage() {
 		$image = $this->arrData['image'];
+		if(!strlen(str_replace("\0", '', $image))) {
+			return '';
+		}
 		$file = \FilesModel::findByUuid($image);
 		$file && $image = $file->path;
 		return $image;

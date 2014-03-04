@@ -93,6 +93,9 @@ abstract class AbstractMultimediaVideo extends AbstractMultimedia implements Mul
 			return $this->arrData['audiodesc_external'];
 		}
 		$audio = $this->arrData['audiodesc_local'];
+		if(!strlen(str_replace("\0", '', $audio))) {
+			return '';
+		}
 		$file = \FilesModel::findByUuid($audio);
 		$file && $audio = $file->path;
 		return $audio;

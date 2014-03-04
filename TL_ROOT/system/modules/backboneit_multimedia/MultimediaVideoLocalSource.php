@@ -7,7 +7,10 @@ class MultimediaVideoLocalSource extends MultimediaVideoHTTPSource {
 	}
 
 	public function getURL() {
-		return Environment::getInstance()->base . parent::getURL();
+		$url = parent::getURL();
+		$file = \FilesModel::findByUuid($url);
+		$file && $url = $file->path;
+		return \Environment::getInstance()->base . $url;
 	}
 
 	public function getLocalPath() {

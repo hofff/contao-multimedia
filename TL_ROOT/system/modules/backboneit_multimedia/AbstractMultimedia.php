@@ -14,7 +14,7 @@ abstract class AbstractMultimedia extends Controller implements Multimedia {
 		$objPlayer = call_user_func(array($strClass, 'create'), $arrConfig);
 
 		$objPlayer->setSizeMode($arrConfig['bbit_mm_sizing']);
-		$arrConfig['bbit_mm_sizing'] == 'custom' && $objPlayer->setSize($arrConfig['bbit_mm_size']);
+		$arrConfig['bbit_mm_sizing'] == 'bbit_mm_custom' && $objPlayer->setSize($arrConfig['bbit_mm_size']);
 
 		$objTemplate = $this->buildTemplate($arrConfig);
 		$objTemplate->embed = $objPlayer->embed($this);

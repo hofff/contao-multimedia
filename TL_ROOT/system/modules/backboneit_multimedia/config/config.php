@@ -2,7 +2,7 @@
 
 $GLOBALS['BE_MOD']['content']['bbit_mm'] = array(
 	'tables'	=> array('tl_bbit_mm', 'tl_bbit_mm_captions'),
-	'icon'		=> ''
+	'icon'		=> 'system/modules/backboneit_multimedia/html/images/play.png',
 );
 
 $GLOBALS['BE_FFL']['valuedCheckbox'] = 'ValuedCheckBox';

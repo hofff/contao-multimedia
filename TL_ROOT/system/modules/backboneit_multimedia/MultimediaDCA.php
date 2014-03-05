@@ -5,10 +5,10 @@ class MultimediaDCA extends Backend {
 	public function renderCaptionsButton($row, $href, $label, $title, $icon, $attributes) {
 		$objMM = MultimediaFactory::getInstance()->create($row);
 
-		if(!($objMM instanceof MultimediaFeatureCaptions)) {
+		if(!is_a($objMM, 'MultimediaFeatureCaptions')) {
 			return '';
 		}
-		if($objMM->isCaptionsEmbedded()) {
+		if(!$objMM->hasCaptions() || $objMM->isCaptionsEmbedded()) {
 			return '';
 		}
 
@@ -17,7 +17,7 @@ class MultimediaDCA extends Backend {
 			$this->addToUrl($href . '&id=' . $row['id']),
 			$title,
 			$attributes,
-			$label
+			$this->generateImage($icon, $label)
 		);
 	}
 

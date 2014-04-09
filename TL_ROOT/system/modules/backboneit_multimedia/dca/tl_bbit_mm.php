@@ -68,7 +68,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 	),
 
 	'palettes' => array(
-		'__selector__' => array('type'),
+		'__selector__' => array('type', 'ratio', 'captions_source', 'audiodesc_source'),
 
 		'default'	=> '{general_legend},type,title,description,image'
 			,

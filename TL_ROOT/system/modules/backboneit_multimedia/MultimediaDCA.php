@@ -38,7 +38,6 @@ class MultimediaDCA extends Backend {
 			)->set(array(
 				'title' => $objMM->getTitle(),
 				'description' => $objMM->getDescription(),
-				'youtube_source' => $objMM->getYoutubeLink(),
 				'youtube_image' => $objMM->getYoutubeImage()
 			))->execute($objDC->id);
 

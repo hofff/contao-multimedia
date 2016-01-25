@@ -1,39 +1,42 @@
 {
-	"name": "backboneit/contao-multimedia",
-	"description": "Embed multimedia content with various players into Contao CMS",
-	"keywords": [ "video", "player", "multimedia", "contao" ],
-	"type": "contao-module",
-	"license": "LGPL-3.0+",
-	"authors": [
-		{
-			"name": "Oliver Hoff",
-			"email": "oliver@hofff.com",
-			"homepage": "http://hofff.com/",
-			"role": "Developer"
+	"name" : "backboneit/contao-multimedia",
+	"description" : "Embed multimedia content with various players into Contao CMS",
+	"keywords" : [
+		"video",
+		"player",
+		"multimedia",
+		"contao"
+	],
+	"type" : "contao-module",
+	"license" : "LGPL-3.0+",
+	"authors" : [{
+			"name" : "Oliver Hoff",
+			"email" : "oliver@hofff.com",
+			"homepage" : "http://hofff.com/",
+			"role" : "Developer"
 		}
 	],
-	"support": {
-		"issues": "https://github.com/backbone87/contao-multimedia/issues",
-		"forum": "https://community.contao.org/de/showthread.php?31509-backboneit_multimedia-Multimedia-Inhalte-f%FCr-Contao-pflegen",
-		"irc": "irc://irc.freenode.org/contao.dev",
-		"source": "https://github.com/backbone87/contao-multimedia"
+	"support" : {
+		"issues" : "https://github.com/backbone87/contao-multimedia/issues",
+		"forum" : "https://community.contao.org/de/showthread.php?31509-backboneit_multimedia-Multimedia-Inhalte-f%FCr-Contao-pflegen",
+		"irc" : "irc://irc.freenode.org/contao.dev",
+		"source" : "https://github.com/backbone87/contao-multimedia"
 	},
-	"require": {
-		"php": ">=5.3",
-		"contao/core": ">=3.2,<4",
-		"menatwork/contao-multicolumnwizard": ">=3.2-dev,<4",
-		"discordier/httprequestextended": ">=1.1,<2"
+	"require" : {
+		"php" : ">=5.3",
+		"contao/core" : "~3.2",
+		"menatwork/contao-multicolumnwizard" : "~3.2",
+		"discordier/httprequestextended" : "~1.1",
+		"google/apiclient": "~2.0"
 	},
-	"replace": {
-		"contao-legacy/backboneit_multimedia": "*"
+	"replace" : {
+		"contao-legacy/backboneit_multimedia" : "*"
 	},
-	"extra": {
-		"contao": {
-			"sources": {
-				"TL_ROOT/system/modules/backboneit_multimedia": "system/modules/backboneit_multimedia"
+	"extra" : {
+		"contao" : {
+			"sources" : {
+				"TL_ROOT/system/modules/backboneit_multimedia" : "system/modules/backboneit_multimedia"
 			}
-		},
-		"branch-alias": {
 		}
 	}
 }

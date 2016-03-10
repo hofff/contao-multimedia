@@ -26,6 +26,7 @@ ClassLoader::addClasses(array
 	'MultimediaFactory'               => 'system/modules/backboneit_multimedia/MultimediaFactory.php',
 	'MultimediaFeatureAudiodesc'      => 'system/modules/backboneit_multimedia/MultimediaFeatureAudiodesc.php',
 	'MultimediaFeatureCaptions'       => 'system/modules/backboneit_multimedia/MultimediaFeatureCaptions.php',
+	'MultimediaModel'                 => 'system/modules/backboneit_multimedia/MultimediaModel.php',
 	'MultimediaPlayer'                => 'system/modules/backboneit_multimedia/MultimediaPlayer.php',
 	'MultimediaPlayerFactory'         => 'system/modules/backboneit_multimedia/MultimediaPlayerFactory.php',
 	'MultimediaUtils'                 => 'system/modules/backboneit_multimedia/MultimediaUtils.php',

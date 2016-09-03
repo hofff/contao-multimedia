@@ -26,7 +26,7 @@ class MultimediaDCA extends Backend {
 	}
 
 	public function submitYoutube($objDC) {
-		if($objDC->activeRecord->type != 'youtube') {
+		if($objDC->activeRecord->type != 'youtube' || !strlen($objDC->activeRecord->youtube_source)) {
 			return;
 		}
 
@@ -47,7 +47,7 @@ class MultimediaDCA extends Backend {
 	}
 
 	public function submitVimeo($objDC) {
-		if($objDC->activeRecord->type != 'vimeo') {
+		if($objDC->activeRecord->type != 'vimeo' || !strlen($objDC->activeRecord->vimeo_source)) {
 			return;
 		}
 

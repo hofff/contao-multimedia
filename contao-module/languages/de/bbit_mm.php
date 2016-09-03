@@ -3,6 +3,7 @@
 
 $GLOBALS['TL_LANG']['bbit_mm']['types']['video'] = 'Video';
 $GLOBALS['TL_LANG']['bbit_mm']['types']['youtube'] = 'YouTube-Video';
+$GLOBALS['TL_LANG']['bbit_mm']['types']['vimeo'] = 'Vimeo-Video';
 
 //$GLOBALS['TL_LANG']['bbit_mm']['players']['myplayer'] = 'Mein Player';
 

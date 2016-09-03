@@ -23,6 +23,8 @@ CREATE TABLE `tl_bbit_mm` (
   `youtube_source` varchar(1022) NOT NULL default '',
   `youtube_image` varchar(1022) NOT NULL default '',
 
+  `vimeo_source` varchar(1022) NOT NULL default '',
+
   `video_source` blob NULL,
 
   `audio_source` blob NULL,

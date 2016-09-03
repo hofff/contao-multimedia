@@ -12,6 +12,7 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 		),
 		'onsubmit_callback'	=> array(
 			array('MultimediaDCA', 'submitYoutube'),
+			array('MultimediaDCA', 'submitVimeo'),
 			array('MultimediaDCA', 'submitVideo'),
 		),
 	),
@@ -75,6 +76,12 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 
 		'youtube' => '{general_legend},type,title,description,image'
 			. ';{video_legend},youtube_source,ratio'
+			. ';{captions_legend},captions_source'
+			. ';{audiodesc_legend},audiodesc_source'
+			,
+
+		'vimeo' => '{general_legend},type,title,description,image'
+			. ';{video_legend},vimeo_source,ratio'
 			. ';{captions_legend},captions_source'
 			. ';{audiodesc_legend},audiodesc_source'
 			,
@@ -176,6 +183,19 @@ $GLOBALS['TL_DCA']['tl_bbit_mm'] = array(
 
 		'youtube_source' => array(
 			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['youtube_source'],
+			'inputType'		=> 'text',
+			'eval'			=> array(
+				'mandatory'			=> true,
+				'maxlength'			=> 1023,
+				'rgxp'				=> 'url',
+				'tl_class'			=> 'clr long',
+				'decodeEntities'	=> true
+			)
+		),
+
+
+		'vimeo_source' => array(
+			'label'			=> &$GLOBALS['TL_LANG']['tl_bbit_mm']['vimeo_source'],
 			'inputType'		=> 'text',
 			'eval'			=> array(
 				'mandatory'			=> true,

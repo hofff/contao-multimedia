@@ -46,6 +46,19 @@ class MultimediaDCA extends Backend {
 		}
 	}
 
+	public function submitVimeo($objDC) {
+		if($objDC->activeRecord->type != 'vimeo') {
+			return;
+		}
+
+		try {
+			new MultimediaVimeo($objDC->activeRecord->row());
+
+		} catch(Exception $e) {
+			$this->addErrorMessage($e->getMessage());
+		}
+	}
+
 	private $sources;
 
 	private $localSourcesSaved;

@@ -72,6 +72,10 @@ $GLOBALS['TL_LANG']['tl_bbit_mm']['youtube_source']
 	= array('YouTube-Link/ID', 'Ein Link zu einem Video auf YouTube oder die YouTube-ID eines Videos.');
 
 
+$GLOBALS['TL_LANG']['tl_bbit_mm']['vimeo_source']
+	= array('Vimeo-Link/ID', 'Ein Link zu einem Video auf Vimeo oder die Vimeo-ID eines Videos.');
+
+
 $GLOBALS['TL_LANG']['tl_bbit_mm']['captions_legend']
 	= 'Untertitel';
 $GLOBALS['TL_LANG']['tl_bbit_mm']['captions_source']

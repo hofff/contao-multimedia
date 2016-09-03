@@ -15,7 +15,7 @@ class MultimediaYoutube extends AbstractMultimediaVideo {
 		}
 
 		if(!preg_match('@^[a-z0-9_-]+$@i', $strYoutubeID)) {
-			throw new Exception(sprintf('[%s] is not a valid YouTube ID', $this->arrData['youtube']));
+			throw new Exception(sprintf('[%s] is not a valid YouTube ID', $this->arrData['youtube_source']));
 		}
 
 		$this->strYoutubeID = $strYoutubeID;

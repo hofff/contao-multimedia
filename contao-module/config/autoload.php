@@ -3,11 +3,9 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2016 Leo Feyer
  *
- * @package Hofff_multimedia
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
 
@@ -37,6 +35,7 @@ ClassLoader::addClasses(array
 	'MultimediaVideoRTMPSource'       => 'system/modules/hofff_multimedia/MultimediaVideoRTMPSource.php',
 	'MultimediaVideoSMILSource'       => 'system/modules/hofff_multimedia/MultimediaVideoSMILSource.php',
 	'MultimediaVideoSource'           => 'system/modules/hofff_multimedia/MultimediaVideoSource.php',
+	'MultimediaVimeo'                 => 'system/modules/hofff_multimedia/MultimediaVimeo.php',
 	'MultimediaYoutube'               => 'system/modules/hofff_multimedia/MultimediaYoutube.php',
 	'ValuedCheckBox'                  => 'system/modules/hofff_multimedia/ValuedCheckBox.php',
 ));

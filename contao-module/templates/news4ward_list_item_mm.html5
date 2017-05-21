@@ -1,0 +1,24 @@
+
+<div class="layout_short news4ward_list block<?php echo $this->class; ?>"<?php echo $this->cssID; ?>>
+<?php if ($this->hasMetaFields): ?>
+<p class="info"><?php echo $this->date; ?> <?php echo $this->author; ?></p>
+<?php endif; ?>
+<h2><a href="<?php echo $this->link; ?>"><?php echo $this->title; ?></a></h2>
+<?php if(!empty($this->subheadline)): ?>
+<h3><?php echo $this->subheadline; ?></h3>
+<?php endif;?>
+<div class="teaser <?php echo $this->teaserClass; ?>"<?php echo $this->teaserCssID; ?>>
+	<?php if($mm = MultimediaFactory::getInstance()->createByID($this->bbit_mm_media)): ?>
+		<?= $mm->generate($this->getData()) ?>
+	<?php elseif(!empty($this->teaserImage)): ?>
+		<figure class="image_container">
+			<img src="<?php echo $this->teaserImage; ?>" alt="<?php echo $this->title; ?>">
+			<?php if ($this->teaserImageCaption): ?>
+			<figcaption class="caption" style="width:<?php echo $this->arrSize[0]; ?>px"><?php echo $this->teaserImageCaption; ?></figcaption>
+			<?php endif; ?>
+		</figure>
+	<?php endif; ?>
+	<?php echo $this->teaser; ?>
+</div>
+<a href="<?php echo $this->link; ?>" class="more"><?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?></a>
+</div>

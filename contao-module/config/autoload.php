@@ -46,7 +46,8 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'bbit_mm'          => 'system/modules/hofff_multimedia/templates',
-	'bbit_mm_mediabox' => 'system/modules/hofff_multimedia/templates',
-	'ce_multimedia'    => 'system/modules/hofff_multimedia/templates',
+	'bbit_mm'                => 'system/modules/hofff_multimedia/templates',
+	'bbit_mm_mediabox'       => 'system/modules/hofff_multimedia/templates',
+	'ce_multimedia'          => 'system/modules/hofff_multimedia/templates',
+	'news4ward_list_item_mm' => 'system/modules/hofff_multimedia/templates',
 ));

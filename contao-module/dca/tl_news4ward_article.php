@@ -42,7 +42,8 @@ $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_media'] = array(
 	),
 	'wizard'		=> array(
 		array('MultimediaDCA', 'getEditMediaWizard')
-	)
+	),
+	'sql'			=> 'int(10) unsigned NOT NULL default \'0\'',
 );
 
 $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_sizing'] = array(
@@ -56,7 +57,8 @@ $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_sizing'] = array(
 		'mandatory'			=> true,
 		'submitOnChange'	=> true,
 		'tl_class'			=> 'clr w50'
-	)
+	),
+	'sql'			=> 'varchar(255) NOT NULL default \'\'',
 );
 
 $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_size'] = array(
@@ -72,7 +74,8 @@ $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_size'] = array(
 	),
 	'save_callback'	=> array(
 		array('MultimediaDCA', 'saveSize')
-	)
+	),
+	'sql'			=> 'varchar(255) NOT NULL default \'\'',
 );
 
 $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_player'] = array(
@@ -87,5 +90,6 @@ $GLOBALS['TL_DCA']['tl_news4ward_article']['fields']['bbit_mm_player'] = array(
 		'blankOptionLabel'	=> &$GLOBALS['TL_LANG']['bbit_mm']['playerBlankOption'],
 		'tl_class'			=> 'clr w50'
 	),
+	'sql'			=> 'varchar(255) NOT NULL default \'\'',
 );
 

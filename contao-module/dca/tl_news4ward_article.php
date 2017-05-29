@@ -9,7 +9,7 @@ $this->loadLanguageFile('bbit_mm');
 call_user_func(function() {
 	$dca = &$GLOBALS['TL_DCA']['tl_news4ward_article'];
 
-// 	$dca['palettes']['__selector__'][] = 'bbit_mm_player';
+	$dca['palettes']['__selector__'][] = 'bbit_mm_player';
 	$dca['palettes']['__selector__'][] = 'bbit_mm_sizing';
 
 	$palette = ',bbit_mm_media,bbit_mm_sizing,bbit_mm_player';
